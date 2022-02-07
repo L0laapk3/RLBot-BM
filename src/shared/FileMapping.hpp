@@ -9,8 +9,7 @@ namespace RLBotBM::Shared {
 
 template <typename T>
 struct FileMapping {
-	FileMapping(const std::string name, bool create, const DWORD pid) {
-		auto mapName = name + "/" + std::to_string(pid);
+	FileMapping(const std::string name, bool create) {
 		if (create) {
 			CreateFileMapping(
 				INVALID_HANDLE_VALUE,    // use paging file
@@ -18,12 +17,12 @@ struct FileMapping {
 				PAGE_READWRITE,          // read/write access
 				0,                       // maximum object size (high-order DWORD)
 				sizeof(T),               // maximum object size (low-order DWORD)
-				mapName.c_str());
+				name.c_str());
 		} else {
 			OpenFileMapping(
 				FILE_MAP_ALL_ACCESS,   // read/write access
 				FALSE,                 // do not inherit the name
-				mapName.c_str());
+				name.c_str());
 		}
 		if (!hMapFile)
 			throw std::exception();
@@ -41,7 +40,7 @@ struct FileMapping {
 
 template <typename T>
 struct FileMappingView {
-	FileMappingView(FileMapping<T>& fileMapping, const DWORD pid) {
+	FileMappingView(FileMapping<T>& fileMapping) {
 		mem = (T*)MapViewOfFile(fileMapping.hMapFile,   // handle to map object
 			FILE_MAP_ALL_ACCESS, // read/write permission
 			0,

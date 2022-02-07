@@ -1,5 +1,6 @@
 #include "shared/IPComm.h"
 
+#define NOMINMAX
 #include <windows.h>
 #include <tchar.h>
 
@@ -8,10 +9,10 @@
 
 namespace RLBotBM::Shared {
 
-IPComm::IPComm(bool create, DWORD pid) :
-	fileMapping("sharedMemory", create, pid),
-	mem(fileMapping, pid),
-	cvWaitTick("cvWaitTick", &mem->nTickWaiters, pid),
-	cvWaitControls("cvWaitControls", &mem->nControlWaiters, pid) {}
+IPComm::IPComm(bool create) :
+	fileMapping("sharedMemory", create),
+	mem(fileMapping),
+	cvWaitTick("cvWaitTick", &mem->nTickWaiters),
+	cvWaitControls("cvWaitControls", &mem->nControlWaiters) {}
 	
 }

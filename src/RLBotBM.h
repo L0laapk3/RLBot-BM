@@ -14,14 +14,14 @@ typedef Shared::ControllerInput ControllerInput;
 class RLBotBM {
 	Shared::IPComm ipComm;
 	int lastTick = 0;
-
+	
 public:
-	RLBotBM(uint32_t rlPID);
+	RLBotBM();
 
 	void setControls(int carIndex, ControllerInput& controls);
 
 	bool pollNextTick(GameState& state);
-	void waitNextTick(GameState& state);
+	bool waitNextTick(GameState& state);
 };
 
 }

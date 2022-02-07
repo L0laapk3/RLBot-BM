@@ -12,7 +12,7 @@ struct CondVar {
 	HANDLE hSem;
 	HANDLE hSemLock;
 	int *const nWaiters;
-	CondVar(const std::string name, int *const shMemWaiters, const DWORD pid);
+	CondVar(const std::string name, int *const shMemWaiters);
 	~CondVar();
 	
 

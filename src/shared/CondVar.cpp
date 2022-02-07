@@ -3,15 +3,15 @@
 
 namespace RLBotBM::Shared {
 
-CondVar::CondVar(const std::string name, int *const shMemWaiters, const DWORD pid) : nWaiters(shMemWaiters) {
-	auto semName = name + "/sem/" + std::to_string(pid);
+CondVar::CondVar(const std::string name, int *const shMemWaiters) : nWaiters(shMemWaiters) {
+	auto semName = name + "/sem/";
     hSem = CreateSemaphore(NULL, 0, std::numeric_limits<LONG>::max(), semName.c_str());
     if (hSem == NULL) {
         throw std::exception();
     }
 	ReleaseSemaphore(hSem, 1, NULL);
 
-	auto semLockName = name + "/semLock/" + std::to_string(pid);
+	auto semLockName = name + "/semLock/";
 	hSemLock = CreateSemaphore(NULL, 0, 1, semLockName.c_str());
 	if (hSemLock == NULL) {
 		CloseHandle(hSem);

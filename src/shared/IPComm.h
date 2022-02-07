@@ -1,7 +1,5 @@
 #pragma once
 
-#include <array>
-
 #include "shared/FileMapping.hpp"
 #include "shared/CondVar.h"
 #include "shared/SharedObjects.h"
@@ -29,7 +27,7 @@ public:
 	struct SharedMemoryDoesNotExistException : public Exception { SharedMemoryDoesNotExistException() : Exception("Shared memory does not exist") {} };
 
 
-	IPComm(bool create, DWORD pid);
+	IPComm(bool create);
 
 private:
 	FileMapping<SharedMemoryObj> fileMapping;
