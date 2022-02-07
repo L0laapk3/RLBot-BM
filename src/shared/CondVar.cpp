@@ -28,38 +28,58 @@ CondVar::~CondVar() {
 void CondVar::lock() {
 	WaitForSingleObject(hSemLock, INFINITE);
 }
-
-bool CondVar::notifyOne() {
-	lock();
-	return notifyOnePreLocked();
+void CondVar::unlock() {
+	ReleaseSemaphore(hSemLock, 1, NULL);
 }
 
-bool CondVar::notifyAllPreLocked() {
+	template<bool preLocked = false, bool keepLocked = false>
+	bool notifyOne();
+	template<bool preLocked = false, bool keepLocked = false>
+	bool notifyAll();
+	template<bool preLocked = false, bool keepLocked = false>
+	bool wait(DWORD waitTimeMS = INFINITE);
+};
+
+template <bool preLocked, bool keepLocked>
+bool CondVar::notifyOne() {
+	if (!preLocked)
+		lock();
 	bool result = ReleaseSemaphore(hSem, 1, NULL);
 	(*nWaiters)--;
-	ReleaseSemaphore(hSemLock, 1, NULL);
+	if (!keepLocked)
+		unlock();
 	return result;
 }
+template CondVar::notifyOne<false, false>();
+template CondVar::notifyOne<true, false>();
+template CondVar::notifyOne<false, true>();
+template CondVar::notifyOne<true, true>();
 
+template <bool preLocked, bool keepLocked>
 bool CondVar::notifyAll() {
-	lock();
-	return notifyAllPreLocked();
-}
-bool CondVar::notifyAllPreLocked() {
+	if (!preLocked)
+		lock();
 	bool result = ReleaseSemaphore(hSem, *nWaiters, NULL);
 	*nWaiters = 0;
-	ReleaseSemaphore(hSemLock, 1, NULL);
+	if (!keepLocked)
+		unlock();
 	return result;
 }
+template CondVar::notifyAll<false, false>();
+template CondVar::notifyAll<true, false>();
+template CondVar::notifyAll<false, true>();
+template CondVar::notifyAll<true, true>();
 
+template <bool preLocked>
 bool CondVar::wait(DWORD waitTimeMS) {
-	lock();
-	return waitPreLocked(waitTimeMS);
-}
-bool CondVar::waitPreLocked(DWORD waitTimeMS) {
+	if (!preLocked)
+		lock();
     (*nWaiters)++;
-    ReleaseSemaphore(hSemLock, 1, NULL);
+    unlock();
     return WaitForSingleObject(hSem, waitTimeMS) == WAIT_OBJECT_0;
 }
+template CondVar::wait<false>();
+template CondVar::wait<true>();
+
 
 }

@@ -14,15 +14,17 @@ struct CondVar {
 	int *const nWaiters;
 	CondVar(const std::string name, int *const shMemWaiters, const DWORD pid);
 	~CondVar();
-
-	bool notifyOne();
-	bool notifyAll();
-	bool wait(DWORD waitTimeMS = INFINITE);
+	
 
 	void lock();
-	bool notifyOnePreLocked();
-	bool notifyAllPreLocked();
-	bool waitPreLocked(DWORD waitTimeMS = INFINITE);
+	void unlock();
+
+	template<bool preLocked = false, bool keepLocked = false>
+	bool notifyOne();
+	template<bool preLocked = false, bool keepLocked = false>
+	bool notifyAll();
+	template<bool preLocked = false>
+	bool wait(DWORD waitTimeMS = INFINITE);
 };
 
 }

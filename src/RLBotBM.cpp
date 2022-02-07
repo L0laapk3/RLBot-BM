@@ -21,14 +21,19 @@ bool RLBotBM::pollNextTick(GameState& state) {
 }
 
 void RLBotBM::waitNextTick(GameState& state) {
-	if (lastTick == ipComm.mem->tick)
+	// lock the wait cv to prevent tick from being updated later
+	ipComm.cvWaitTick.lock();	// todo: somehow all bots should be able to lock and unlock this simultaneously but not the framework
+	if (lastTick != ipComm.mem->tick) {
+		ipComm.cvWaitTick.unlock();
+		state = ipComm.mem;
 		return;
+	}
 		
 	// signal the framework that we're ready with current tick
-
+	ipComm.cvWaitControls.notifyAll();
 	
 	// wait for next tick
-	ipComm.cvWaitTick.wait();
+	ipComm.cvWaitTick.wait<true>();
 	
 }
 
