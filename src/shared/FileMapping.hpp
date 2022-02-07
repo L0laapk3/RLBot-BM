@@ -61,6 +61,10 @@ struct FileMappingView {
 	inline T* operator->() const {
 		return mem;
 	}
+
+	inline operator T() const {
+		return *mem;
+	}
 };
 
 }

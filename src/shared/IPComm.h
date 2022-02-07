@@ -3,7 +3,7 @@
 #include <array>
 
 #include "shared/FileMapping.hpp"
-#include "shared/Semaphore.h"
+#include "shared/CondVar.h"
 #include "shared/SharedObjects.h"
 
 
@@ -35,8 +35,8 @@ private:
 	FileMapping<SharedMemoryObj> fileMapping;
 public:
 	FileMappingView<SharedMemoryObj> mem;
-	Semaphore semWaitTick;
-	Semaphore semWaitControls;
+	CondVar cvWaitTick;
+	CondVar cvWaitControls;
 };
 
 }

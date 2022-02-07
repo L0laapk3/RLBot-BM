@@ -1,6 +1,6 @@
 #pragma once
 
-
+#include <array>
 
 namespace RLBotBM::Shared {
 	

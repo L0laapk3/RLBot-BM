@@ -11,7 +11,7 @@ namespace RLBotBM::Shared {
 IPComm::IPComm(bool create, DWORD pid) :
 	fileMapping("sharedMemory", create, pid),
 	mem(fileMapping, pid),
-	semWaitTick("semWaitTick", &mem->nTickWaiters, pid),
-	semWaitControls("semWaitControls", &mem->nControlWaiters, pid) {}
+	cvWaitTick("cvWaitTick", &mem->nTickWaiters, pid),
+	cvWaitControls("cvWaitControls", &mem->nControlWaiters, pid) {}
 	
 }
