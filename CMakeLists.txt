@@ -7,7 +7,7 @@ file(GLOB source_files ${PROJECT_SOURCE_DIR}/src/*.cpp)
 set(CMAKE_CPP_COMPILER clang++)
 
 
-add_executable(RLBotBM ${source_files})
+add_library(RLBotBM STATIC ${source_files})
 
 
 
