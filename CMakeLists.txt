@@ -9,8 +9,7 @@ set(CMAKE_CPP_COMPILER clang++)
 
 add_library(RLBotBMLib STATIC ${source_files})
 
-
-
+target_include_directories(RLBotBMLib PUBLIC ${PROJECT_SOURCE_DIR}/src)
 target_compile_features(RLBotBMLib PUBLIC cxx_std_20)
 
 set_property(TARGET RLBotBMLib PROPERTY INTERPROCEDURAL_OPTIMIZATION TRUE)
