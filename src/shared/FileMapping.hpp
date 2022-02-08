@@ -11,7 +11,7 @@ template <typename T>
 struct FileMapping {
 	FileMapping(const std::string name, bool create) {
 		if (create) {
-			CreateFileMapping(
+			hMapFile = CreateFileMapping(
 				INVALID_HANDLE_VALUE,    // use paging file
 				NULL,                    // default security
 				PAGE_READWRITE,          // read/write access
@@ -19,7 +19,7 @@ struct FileMapping {
 				sizeof(T),               // maximum object size (low-order DWORD)
 				name.c_str());
 		} else {
-			OpenFileMapping(
+			hMapFile = OpenFileMapping(
 				FILE_MAP_ALL_ACCESS,   // read/write access
 				FALSE,                 // do not inherit the name
 				name.c_str());
