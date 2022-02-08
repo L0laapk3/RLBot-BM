@@ -18,7 +18,7 @@ class RLBotBM {
 public:
 	RLBotBM();
 
-	void setControls(int carIndex, ControllerInput& controls);
+	void setBotInput(const ControllerInput& controls, const int carIndex);
 
 	bool pollNextTick(GameState& state);
 	bool waitNextTick(GameState& state);

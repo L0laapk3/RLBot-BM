@@ -9,7 +9,7 @@ namespace RLBotBM {
 RLBotBM::RLBotBM() : ipComm(false) {
 }
 
-void RLBotBM::setControls(int carIndex, Shared::ControllerInput& controls) {
+void RLBotBM::setBotInput(const Shared::ControllerInput& controls, const int carIndex) {
 	ipComm.mem->cars[carIndex].input = controls;
 	ipComm.mem->cars[carIndex].RLBotBMControlled = true;
 }
