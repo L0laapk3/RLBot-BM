@@ -1,6 +1,6 @@
 # RLBot-BM_Lib
 
-### What is RLBot-BM_Lib?
+## What is RLBot-BM_Lib?
 
 RLBot-BM_Lib is a library that replaces the critical path of [RLBot](https://rlbot.org/). 
 It is build ontop of RLBot, and remains backwards compatible, but the input and output data is routed trough bakkesmod instead.
@@ -13,7 +13,7 @@ This has a number of advantages:
 * Working lockstep functionality that allows bots as much time as required to compute each tick (NYI)
 * Tick perfect state setting (NYI)
 
-### Current progress
+## Project status
 
 **Working:**
 * Bot controls routed trough RLBot-BM
