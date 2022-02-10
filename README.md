@@ -1,8 +1,8 @@
-# RLBot-BM_Lib
+# RLBot-BM
 
-## What is RLBot-BM_Lib?
+## What is RLBot-BM?
 
-RLBot-BM_Lib is a library that replaces the critical path of [RLBot](https://rlbot.org/). 
+RLBot-BM is a library that replaces the critical path of [RLBot](https://rlbot.org/). 
 It is build ontop of RLBot, and remains backwards compatible, but the input and output data is routed through bakkesmod instead.
 
 This has a number of advantages:
