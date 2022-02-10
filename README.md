@@ -20,7 +20,7 @@ This has a number of advantages:
 * All of the above listed features except where stated otherwise
 
 **In progress:**
-* Game date routed through RLBot-BM
+* Gamestate data routed through RLBot-BM
 
 **Planned:**
 * Replace RLBot state setting
