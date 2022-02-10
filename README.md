@@ -3,7 +3,7 @@
 ## What is RLBot-BM_Lib?
 
 RLBot-BM_Lib is a library that replaces the critical path of [RLBot](https://rlbot.org/). 
-It is build ontop of RLBot, and remains backwards compatible, but the input and output data is routed trough bakkesmod instead.
+It is build ontop of RLBot, and remains backwards compatible, but the input and output data is routed through bakkesmod instead.
 
 This has a number of advantages:
 * Tick perfect, no more dropped ticks when the framerate dips
@@ -16,11 +16,11 @@ This has a number of advantages:
 ## Project status
 
 **Working:**
-* Bot controls routed trough RLBot-BM
+* Bot controls routed through RLBot-BM
 * All of the above listed features except where stated otherwise
 
 **In progress:**
-* Game date routed trough RLBot-BM
+* Game date routed through RLBot-BM
 
 **Planned:**
 * Replace RLBot state setting
