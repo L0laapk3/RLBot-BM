@@ -14,12 +14,16 @@ void RLBotBM::setBotInput(const Shared::ControllerInput& controls, const int car
 	ipComm.mem->cars[carIndex].RLBotBMControlled = true;
 }
 
+void RLBotBM::getCurrentState(GameState& state) {
+	lastTick = ipComm.mem->tick;
+	state = ipComm.mem;
+}
+
 bool RLBotBM::pollNextTick(GameState& state) {
 	if (lastTick == ipComm.mem->tick)
 		return false;
 
-	lastTick = ipComm.mem->tick;
-	state = ipComm.mem;
+	getCurrentState(state);
 	return true;
 }
 
@@ -38,7 +42,7 @@ bool RLBotBM::waitNextTick(GameState& state) {
 		hadToWait = true;
 	}
 	
-	state = ipComm.mem;
+	getCurrentState(state);
 	return hadToWait;
 }
 
