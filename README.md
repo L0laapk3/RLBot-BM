@@ -18,10 +18,10 @@ This has a number of advantages:
 
 **Working:**
 * Bot controls routed through RLBot-BM
+* Gamestate data routed through RLBot-BM
 * All of the above listed features except where stated otherwise
 
 **In progress:**
-* Gamestate data routed through RLBot-BM
 * Boost data routed through RLBot-BMo
 * Rumble items
 
