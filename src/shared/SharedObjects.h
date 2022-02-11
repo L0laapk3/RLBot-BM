@@ -1,6 +1,7 @@
 #pragma once
 
 #include <array>
+#include <bitset>
 
 namespace RLBotBM::Shared {
 	
@@ -58,7 +59,7 @@ struct SharedMemoryObj {
 	std::array<Ball, 8> balls;
 	unsigned int numBalls;
 
-	std::array<int, 256> boostPads;
+	std::bitset<256> boostPads;
 	unsigned int numBoostPads;
 
 	int tick;
