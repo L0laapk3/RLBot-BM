@@ -51,7 +51,7 @@ struct Car : PhysicsObj {
 			unsigned int frontRightWheelReset : 1;
 			unsigned int backLeftWheelReset : 1;
 			unsigned int backRightWheelReset : 1;
-			unsigned int onGround : 1;
+			unsigned int jumped : 1;
 			unsigned int hasFlip : 1;
 			unsigned int superSonic : 1;
 			unsigned int demolished : 1;
