@@ -22,7 +22,8 @@ This has a number of advantages:
 
 **In progress:**
 * Gamestate data routed through RLBot-BM
-* Boost data routed through RLBot-BM
+* Boost data routed through RLBot-BMo
+* Rumble items
 
 **Planned:**
 * Replace RLBot state setting
