@@ -17,6 +17,7 @@ class RLBotBM {
 	
 public:
 	RLBotBM();
+	void getCurrentState(GameState& state);
 
 	// set controls for bot at carIndex
 	void setBotInput(const ControllerInput& controls, const int carIndex);
