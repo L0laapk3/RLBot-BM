@@ -34,11 +34,19 @@ struct Ball : PhysicsObj {
 struct Car : PhysicsObj {
 	ControllerInput input;
 	float boost;
+	unsigned char team;
+	Vec3 hitBox;
+	Vec3 hitBoxOffset;
 	struct {
 		unsigned int frontLeftWheelContact : 1;
 		unsigned int frontRightWheelContact : 1;
 		unsigned int backLeftWheelContact : 1;
 		unsigned int backRightWheelContact : 1;
+		unsigned int onGround : 1;
+		unsigned int hasFlip : 1;
+		unsigned int superSonic : 1;
+		unsigned int demolished : 1;
+		unsigned int bot : 1;
 		unsigned int RLBotBMControlled : 1;
 	};
 };
@@ -49,6 +57,9 @@ struct SharedMemoryObj {
 
 	std::array<Ball, 8> balls;
 	unsigned int numBalls;
+
+	std::array<int, 256> boostPads;
+	unsigned int numBoostPads;
 
 	int tick;
 
