@@ -36,8 +36,8 @@ struct Car : PhysicsObj {
 	ControllerInput input;
 	float boost;
 	unsigned char team;
-	Vec3 hitBox;
-	Vec3 hitBoxOffset;
+	Vec3 hitbox;
+	Vec3 hitboxOffset;
 
 	int demolishedAt = std::numeric_limits<int>::min();
 	int flippedAt = std::numeric_limits<int>::min();
