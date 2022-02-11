@@ -33,7 +33,12 @@ struct Ball : PhysicsObj {
 };
 struct Car : PhysicsObj {
 	ControllerInput input;
+	float boost;
 	struct {
+		unsigned int frontLeftWheelContact : 1;
+		unsigned int frontRightWheelContact : 1;
+		unsigned int backLeftWheelContact : 1;
+		unsigned int backRightWheelContact : 1;
 		unsigned int RLBotBMControlled : 1;
 	};
 };
