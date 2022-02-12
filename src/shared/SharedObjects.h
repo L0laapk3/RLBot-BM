@@ -76,6 +76,14 @@ struct SharedMemoryObj {
 
 	int nTickWaiters;
 	int nControlWaiters;
+
+	union {
+		struct {
+			unsigned int roundActive : 1;
+			unsigned int matchEnded : 1;
+		};
+		unsigned int flags;
+	};
 };
 
 }
