@@ -8,8 +8,8 @@ It is build ontop of RLBot, and remains backwards compatible, but the input and 
 This has a number of advantages:
 * Tick perfect, no more dropped ticks when the framerate dips
 * Zero-latency mode
-* Guarantees with regards to minimum provided computation time for each tick
-* Bots get extra time while the game renders frames in parallel (NYI)
+* Guarantees with regards to minimum provided computation time for each tick (currently 4ms)
+* Bots get extra time while the game renders frames in parallel
 * Extra information is provided such as per wheel contact information
 * Working lockstep functionality that allows bots as much time as required to compute each tick (NYI)
 * Tick perfect state setting (NYI)
