@@ -31,7 +31,8 @@ public:
 };
 
 class RLBotBMVersionMisMatchException : public std::runtime_error {
-	virtual char const * what() const { return "RLBot-BM Version mismatch."; }
+public:
+	RLBotBMVersionMisMatchException(unsigned int currentVersion, unsigned int expectedVersion) : std::runtime_error("RLBotBM: Shared memory version mismatch. Has " + std::to_string(currentVersion) + ", but server requires " + std::to_string(expectedVersion)) {}
 };
 
 }

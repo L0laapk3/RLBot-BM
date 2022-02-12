@@ -5,7 +5,7 @@
 
 namespace RLBotBM::Shared {
 
-constexpr unsigned int VERSION = 1;
+constexpr unsigned int VERSION = 2;
 
 	
 struct Vec3 {

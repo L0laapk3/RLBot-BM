@@ -7,8 +7,8 @@ namespace RLBotBM {
 
 RLBotBM::RLBotBM() : ipComm(false) {
 	if (ipComm.mem->version != Shared::VERSION) {
-		std::cerr << "RLBotBM: Shared memory version mismatch. Expected " << Shared::VERSION << ", got " << ipComm.mem->version << "." << std::endl;
-		throw RLBotBMVersionMisMatchException();
+		std::cerr << "RLBotBM: Shared memory version mismatch. Has " << Shared::VERSION << ", but server requires " << ipComm.mem->version << std::endl;
+		throw RLBotBMVersionMisMatchException(Shared::VERSION, ipComm.mem->version);
 	}
 }
 
