@@ -1,12 +1,15 @@
 
 #include "RLBotBM.h"
 
-#define NOMINMAX
-#include <windows.h>
+#include <iostream>
 
 namespace RLBotBM {
 
 RLBotBM::RLBotBM() : ipComm(false) {
+	if (ipComm.mem->version != Shared::VERSION) {
+		std::cerr << "RLBotBM: Shared memory version mismatch. Expected " << Shared::VERSION << ", got " << ipComm.mem->version << "." << std::endl;
+		throw RLBotBMVersionMisMatchException();
+	}
 }
 
 void RLBotBM::setBotInput(const Shared::ControllerInput& controls, const int carIndex) {

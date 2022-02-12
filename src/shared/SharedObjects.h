@@ -4,6 +4,9 @@
 #include <bitset>
 
 namespace RLBotBM::Shared {
+
+constexpr unsigned int VERSION = 1;
+
 	
 struct Vec3 {
 	float x, y, z;
@@ -39,8 +42,8 @@ struct Car : PhysicsObj {
 	Vec3 hitbox;
 	Vec3 hitboxOffset;
 
-	int demolishedAt = std::numeric_limits<int>::min();
-	int flippedAt = std::numeric_limits<int>::min();
+	int demolishedAt;
+	int flippedAt;
 	union {
 		struct {
 			unsigned int frontLeftWheelContact : 1;
@@ -63,6 +66,7 @@ struct Car : PhysicsObj {
 };
 
 struct SharedMemoryObj {
+	unsigned int version;
 	std::array<Car, 64> cars;
 	unsigned int numCars;
 
