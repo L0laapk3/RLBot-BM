@@ -13,6 +13,6 @@ IPComm::IPComm(bool create) :
 	fileMapping("sharedMemory", create),
 	mem(fileMapping),
 	cvWaitTick("cvWaitTick", &mem->nTickWaiters),
-	cvWaitControls("cvWaitControls", &mem->nControlWaiters) {}
+	cvWaitControls("cvWaitControls") {}
 	
 }

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "shared/FileMapping.hpp"
-#include "shared/CondVar.h"
+#include "shared/CondVar.hpp"
 #include "shared/SharedObjects.h"
 
 
@@ -33,8 +33,8 @@ private:
 	FileMapping<SharedMemoryObj> fileMapping;
 public:
 	FileMappingView<SharedMemoryObj> mem;
-	CondVar cvWaitTick;
-	CondVar cvWaitControls;
+	CondVar_MultiRecipient cvWaitTick;
+	CondVar_SingleRecipient cvWaitControls;
 };
 
 }

@@ -5,7 +5,7 @@
 
 namespace RLBotBM::Shared {
 
-constexpr unsigned int VERSION = 2;
+constexpr unsigned int VERSION = 3;
 
 	
 struct Vec3 {
@@ -79,7 +79,6 @@ struct SharedMemoryObj {
 	int tick;
 
 	int nTickWaiters;
-	int nControlWaiters;
 
 	union {
 		struct {
