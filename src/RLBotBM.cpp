@@ -18,6 +18,7 @@ void RLBotBM::setBotInput(const Shared::ControllerInput& controls, const int car
 }
 
 void RLBotBM::getCurrentState(GameState& state) {
+	std::cout << lastTick << " " << ipComm.mem->tick << std::endl;
 	lastTick = ipComm.mem->tick;
 	state = ipComm.mem;
 }
@@ -42,6 +43,9 @@ bool RLBotBM::waitNextTick(GameState& state) {
 		
 		// wait for next tick
 		ipComm.cvWaitTick.waitOne<true>();
+		while (lastTick == ipComm.mem->tick) // eat any possible extra abandoned notifications if we're not on the next tick yet
+			ipComm.cvWaitTick.CondVar_SingleRecipient::waitOne(0);
+			
 		hadToWait = true;
 	}
 	

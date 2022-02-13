@@ -52,7 +52,8 @@ public:
 	}
 
 	bool waitOne(DWORD waitTimeMS = INFINITE) {
-		return WaitForSingleObject(hSem, waitTimeMS) == WAIT_OBJECT_0;
+		auto res = WaitForSingleObject(hSem, waitTimeMS);
+		return res == WAIT_OBJECT_0;
 	}
 
 	bool waitN(int count, DWORD waitTimeMS = INFINITE) {
@@ -63,6 +64,10 @@ public:
 			waitTimeMS = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - std::chrono::high_resolution_clock::now()).count();
 		}
 		return true;
+	}
+
+	void clearNotifications() {
+		while (waitOne(0)) {}
 	}
 };
 
