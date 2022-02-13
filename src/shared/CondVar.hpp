@@ -101,7 +101,7 @@ public:
 			lock();
 		(*nWaiters)++;
 		unlock();
-		return CondVar_1to1::waitOne(waitTimeMS);
+		return CondVar_SingleRecipient::waitOne(waitTimeMS);
 	}
 	
 	template<bool preLocked = false>

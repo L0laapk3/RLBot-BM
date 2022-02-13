@@ -38,10 +38,10 @@ bool RLBotBM::waitNextTick(GameState& state) {
 		ipComm.cvWaitTick.unlock();
 	} else {
 		// signal the framework that we're ready with current tick
-		ipComm.cvWaitControls.notifyAll();
+		ipComm.cvWaitControls.notifyOne();
 		
 		// wait for next tick
-		ipComm.cvWaitTick.wait<true>();
+		ipComm.cvWaitTick.waitOne<true>();
 		hadToWait = true;
 	}
 	
