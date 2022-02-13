@@ -1,11 +1,10 @@
 #pragma once
 
 #include <array>
-#include <bitset>
 
 namespace RLBotBM::Shared {
 
-constexpr unsigned int VERSION = 3;
+constexpr unsigned int VERSION = 4;
 
 	
 struct Vec3 {
@@ -35,6 +34,14 @@ struct PhysicsObj {
 struct Ball : PhysicsObj {
 	float radius;
 };
+
+struct Wheel {
+	float spinSpeed;
+	float suspensionDistance;
+	float frictionCurveInput;	
+	unsigned int contact : 1;
+	unsigned int reset : 1;
+};
 struct Car : PhysicsObj {
 	ControllerInput input;
 	float boost;
@@ -44,16 +51,11 @@ struct Car : PhysicsObj {
 
 	int demolishedAt;
 	int flippedAt;
+
+	// front left, front right, back left, back right
+	std::array<Wheel, 4> wheels;
 	union {
 		struct {
-			unsigned int frontLeftWheelContact : 1;
-			unsigned int frontRightWheelContact : 1;
-			unsigned int backLeftWheelContact : 1;
-			unsigned int backRightWheelContact : 1;
-			unsigned int frontLeftWheelReset : 1;
-			unsigned int frontRightWheelReset : 1;
-			unsigned int backLeftWheelReset : 1;
-			unsigned int backRightWheelReset : 1;
 			unsigned int jumped : 1;
 			unsigned int hasFlip : 1;
 			unsigned int superSonic : 1;
