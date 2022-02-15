@@ -6,7 +6,7 @@
 
 namespace RLBotBM::Shared {
 
-constexpr unsigned int VERSION = 5;
+constexpr unsigned int VERSION = 6;
 
 typedef Markable<MarkableFloat> OptFloat;
 	
@@ -92,13 +92,7 @@ struct StateSetCar : PhysObj<StateSetVec3, StateSetQuat> {
 	std::array<StateSetWheel, 4> wheels;
 };
 
-struct StateSetObj {
-	bool setAny;
-	std::array<StateSetCar, 64> cars;
-	std::array<StateSetBall, 8> balls;
-};
-
-struct SharedMemoryObj {
+struct GameStateObj {
 	unsigned int version;
 	std::array<Car, 64> cars;
 	unsigned int numCars;
@@ -111,8 +105,6 @@ struct SharedMemoryObj {
 
 	int tick;
 
-	int nTickWaiters;
-
 	union {
 		struct {
 			unsigned int roundActive : 1;
@@ -120,6 +112,18 @@ struct SharedMemoryObj {
 		};
 		unsigned int flags;
 	};
+};
+
+struct StateSetObj {
+	std::array<StateSetCar, 64> cars;
+	std::array<StateSetBall, 8> balls;
+	bool setAny;
+};
+
+struct SharedMemoryObj {
+	GameStateObj gameState;
+	
+	int nTickWaiters;
 
 	StateSetObj stateSetObj;
 };
