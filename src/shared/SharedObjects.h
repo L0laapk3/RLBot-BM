@@ -93,7 +93,6 @@ struct StateSetCar : PhysObj<StateSetVec3, StateSetQuat> {
 };
 
 struct GameStateObj {
-	unsigned int version;
 	std::array<Car, 64> cars;
 	unsigned int numCars;
 
@@ -121,6 +120,8 @@ struct StateSetObj {
 };
 
 struct SharedMemoryObj {
+	unsigned int version;
+	
 	GameStateObj gameState;
 	
 	int nTickWaiters;
