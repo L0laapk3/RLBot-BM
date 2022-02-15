@@ -25,13 +25,14 @@ struct ControllerInput {
     unsigned long boost : 1;
 };
 
-struct PhysicsObj {
-	Quat orientation;
-	Vec3 position;
-	Vec3 velocity;
-	Vec3 angularVelocity;
+template<typename V = Vec3, typename Q = Quat>
+struct PhysObj {
+	Q orientation;
+	V position;
+	V velocity;
+	V angularVelocity;
 };
-struct Ball : PhysicsObj {
+struct Ball : PhysObj<> {
 	float radius;
 };
 
@@ -42,7 +43,7 @@ struct Wheel {
 	unsigned int contact : 1;
 	unsigned int reset : 1;
 };
-struct Car : PhysicsObj {
+struct Car : PhysObj<> {
 	ControllerInput input;
 	float boost;
 	unsigned char team;
@@ -67,6 +68,40 @@ struct Car : PhysicsObj {
 	};
 };
 
+struct StateSetVec3 : Vec3 {
+	bool setX;
+	bool setY;
+	bool setZ;
+};
+
+struct StateSetQuat : Quat {
+	bool setX;
+	bool setY;
+	bool setZ;
+	bool setW;
+};
+
+struct StateSetBall : PhysObj<StateSetVec3, StateSetQuat> {
+};
+
+struct StateSetWheel {
+	float spinSpeed;
+	bool setSpinSpeed;
+};
+
+struct StateSetCar : PhysObj<StateSetVec3, StateSetQuat> {
+	float boost;
+	bool setBoost;
+
+	std::array<StateSetWheel, 4> wheels;
+};
+
+struct StateSetObj {
+	bool setAny;
+	std::array<StateSetCar, 64> cars;
+	std::array<StateSetBall, 8> balls;
+};
+
 struct SharedMemoryObj {
 	unsigned int version;
 	std::array<Car, 64> cars;
@@ -89,6 +124,8 @@ struct SharedMemoryObj {
 		};
 		unsigned int flags;
 	};
+
+	StateSetObj stateSetObj;
 };
 
 }
