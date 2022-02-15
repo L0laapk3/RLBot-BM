@@ -1,7 +1,6 @@
 #pragma once
 
 #include <array>
-#include <limits>
 
 #include "markable.hpp"
 
@@ -9,7 +8,7 @@ namespace RLBotBM::Shared {
 
 constexpr unsigned int VERSION = 5;
 
-typedef ak_toolkit::markable<ak_toolkit::mark_fp_nan<float>> optFloat;
+typedef Markable<MarkableFloat> OptFloat;
 	
 struct Vec3 {
 	float x, y, z;
@@ -73,22 +72,22 @@ struct Car : PhysObj<> {
 };
 
 struct StateSetVec3 {
-	optFloat x, y, z;
+	OptFloat x, y, z;
 };
 
 struct StateSetQuat {
-	optFloat x, y, z, w;
+	OptFloat x, y, z, w;
 };
 
 struct StateSetBall : PhysObj<StateSetVec3, StateSetQuat> {
 };
 
 struct StateSetWheel {
-	optFloat spinSpeed;
+	OptFloat spinSpeed;
 };
 
 struct StateSetCar : PhysObj<StateSetVec3, StateSetQuat> {
-	optFloat boost;
+	OptFloat boost;
 
 	std::array<StateSetWheel, 4> wheels;
 };
