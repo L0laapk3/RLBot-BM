@@ -1,11 +1,15 @@
 #pragma once
 
 #include <array>
+#include <limits>
+
+#include "markable.hpp"
 
 namespace RLBotBM::Shared {
 
-constexpr unsigned int VERSION = 4;
+constexpr unsigned int VERSION = 5;
 
+typedef ak_toolkit::markable<ak_toolkit::mark_fp_nan<float>> optFloat;
 	
 struct Vec3 {
 	float x, y, z;
@@ -68,30 +72,23 @@ struct Car : PhysObj<> {
 	};
 };
 
-struct StateSetVec3 : Vec3 {
-	bool setX;
-	bool setY;
-	bool setZ;
+struct StateSetVec3 {
+	optFloat x, y, z;
 };
 
-struct StateSetQuat : Quat {
-	bool setX;
-	bool setY;
-	bool setZ;
-	bool setW;
+struct StateSetQuat {
+	optFloat x, y, z, w;
 };
 
 struct StateSetBall : PhysObj<StateSetVec3, StateSetQuat> {
 };
 
 struct StateSetWheel {
-	float spinSpeed;
-	bool setSpinSpeed;
+	optFloat spinSpeed;
 };
 
 struct StateSetCar : PhysObj<StateSetVec3, StateSetQuat> {
-	float boost;
-	bool setBoost;
+	optFloat boost;
 
 	std::array<StateSetWheel, 4> wheels;
 };
