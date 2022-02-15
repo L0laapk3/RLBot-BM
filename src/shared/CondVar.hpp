@@ -82,7 +82,7 @@ public:
 	bool notifyOne() {
 		if (!preLocked)
 			lock();
-		bool result = CondVar_1to1::notifyOne();
+		bool result = CondVar_SingleRecipient::notifyOne();
 		(*nWaiters)--;
 		if (!keepLocked)
 			unlock();
