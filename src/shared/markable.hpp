@@ -29,7 +29,7 @@ public:
 	operator typename T::ValueType() const {
 		return value;
 	}
-	bool isNull() const {
+	bool isMarked() const {
 		return value == T.markedValue();
 	}
 	void mark() {
