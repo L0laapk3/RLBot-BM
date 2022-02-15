@@ -29,11 +29,11 @@ public:
 	operator typename T::ValueType() const {
 		return value;
 	}
-	bool isMarked() const {
-		return value == T.markedValue();
+	bool hasValue() const {
+		return value != T::markedValue();
 	}
-	void mark() {
-		value = T.markedValue();
+	void clear() {
+		value = T::markedValue();
 	}
 };
 
