@@ -6,7 +6,7 @@
 
 namespace RLBotBM::Shared {
 
-constexpr unsigned int VERSION = 6;
+constexpr unsigned int VERSION = 7;
 
 typedef Markable<MarkableFloat> OptFloat;
 	
