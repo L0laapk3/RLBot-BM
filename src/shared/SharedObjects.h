@@ -92,6 +92,18 @@ struct StateSetCar : PhysObj<StateSetVec3, StateSetQuat> {
 	std::array<StateSetWheel, 4> wheels;
 };
 
+struct DropShotObj {
+	enum TileState : unsigned char {
+		Normal = 0,
+		Damaged = 1,
+		Open = 2,
+	};
+
+	bool isDropShot;
+	float ballCharge;
+	std::array<TileState, 140> tileDamage;
+};
+
 struct GameStateObj {
 	std::array<Car, 64> cars;
 	unsigned int numCars;
@@ -101,6 +113,8 @@ struct GameStateObj {
 
 	std::array<int, 128> boostPads;
 	unsigned int numBoostPads;
+
+	DropShotObj dropShot;
 
 	int tick;
 
