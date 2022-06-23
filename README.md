@@ -29,3 +29,6 @@ This has a number of advantages:
 
 **Planned:**
 * Rumble items
+
+## Example bot:
+[RLBotBM-RLUtilitiesCPPExampleBot](https://github.com/L0laapk3/RLBotBM-RLUtilitiesCPPExampleBot).
