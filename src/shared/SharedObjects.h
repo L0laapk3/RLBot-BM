@@ -106,7 +106,7 @@ struct DropShotObj {
 	std::array<TileState, 140> tileDamage;
 };
 
-struct boostPad {
+struct BoostPad {
 	int pickupTick; // 0 if has respawned
 	bool isBig;
 	Vec3 position;
@@ -119,7 +119,7 @@ struct GameStateObj {
 	std::array<Ball, 8> balls;
 	unsigned int numBalls;
 
-	std::array<boostPad, 128> boostPads;
+	std::array<BoostPad, 128> boostPads;
 	unsigned int numBoostPads;
 
 	DropShotObj dropShot;
