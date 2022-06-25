@@ -6,7 +6,7 @@
 
 namespace RLBotBM::Shared {
 
-constexpr unsigned int VERSION = 7;
+constexpr unsigned int VERSION = 8;
 
 typedef Markable<MarkableFloat> OptFloat;
 	
@@ -26,6 +26,8 @@ struct ControllerInput {
     unsigned long handbrake : 1;
     unsigned long jump : 1;
     unsigned long boost : 1;
+	unsigned long useItem : 1;
+	unsigned long itemTarget;
 };
 
 template<typename V = Vec3, typename Q = Quat>
@@ -104,6 +106,12 @@ struct DropShotObj {
 	std::array<TileState, 140> tileDamage;
 };
 
+struct boostPad {
+	int pickupTick; // 0 if has respawned
+	bool isBig;
+	Vec3 position;
+};
+
 struct GameStateObj {
 	std::array<Car, 64> cars;
 	unsigned int numCars;
@@ -111,7 +119,7 @@ struct GameStateObj {
 	std::array<Ball, 8> balls;
 	unsigned int numBalls;
 
-	std::array<int, 128> boostPads;
+	std::array<boostPad, 128> boostPads;
 	unsigned int numBoostPads;
 
 	DropShotObj dropShot;
