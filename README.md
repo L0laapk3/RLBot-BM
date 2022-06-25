@@ -11,8 +11,8 @@ This has a number of advantages:
 * Guarantees with regards to minimum provided computation time for each tick (currently 4ms)
 * Extra information is provided such as per wheel contact information
 * Tick perfect state setting
+* Dropshot tile data and rumble item type data
 * Uses multiple hooks, bots get extra time while the game renders frames in parallel (NYI)
-* Dropshot tile data and rumble item type data (NYI)
 * Working lockstep functionality that allows bots as much time as required to compute each tick (NYI)
 
 ## Project status
@@ -22,10 +22,13 @@ This has a number of advantages:
 * Gamestate data routed through RLBot-BM
 * Statesetting routed through RLBot-BM
 * All of the above listed features except where stated otherwise
+* Dropshot tile data
 
 **In progress:**
 * Boost data routed through RLBot-BM
 
 **Planned:**
 * Rumble items
-* Dropshot tile data
+
+## Example bot:
+[RLBotBM-RLUtilitiesCPPExampleBot](https://github.com/L0laapk3/RLBotBM-RLUtilitiesCPPExampleBot).
