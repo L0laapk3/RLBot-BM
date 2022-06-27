@@ -24,9 +24,6 @@ This has a number of advantages:
 * All of the above listed features except where stated otherwise
 * Dropshot tile data
 
-**In progress:**
-* Boost data routed through RLBot-BM
-
 **Planned:**
 * Rumble items
 
