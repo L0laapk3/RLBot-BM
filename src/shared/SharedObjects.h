@@ -18,14 +18,14 @@ struct Quat {
 };
 
 struct ControllerInput {
-    float throttle;
-    float steer;
-    float pitch;
-    float yaw;
-    float roll;
-    unsigned long handbrake : 1;
-    unsigned long jump : 1;
-    unsigned long boost : 1;
+	float throttle;
+	float steer;
+	float pitch;
+	float yaw;
+	float roll;
+	unsigned long handbrake : 1;
+	unsigned long jump : 1;
+	unsigned long boost : 1;
 	unsigned long useItem : 1;
 	unsigned long itemTarget;
 };
