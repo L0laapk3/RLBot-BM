@@ -1,14 +1,23 @@
 #pragma once
 
-#include <array>
+#ifdef __cplusplus
+	#include <array>
+	#define ARRAY(T, N, name) std::array<T, N> name
 
-#include "markable.hpp"
+	#include "markable.hpp"
+	typedef Markable<MarkableFloat> OptFloat_t;
+
+	extern "C" {
+#else
+	#define ARRAY(T, N, name) T name[N]
+	typedef float OptFloat_t;
+#endif
 
 namespace RLBotBM::Shared {
 
 constexpr unsigned int VERSION = 8;
 
-typedef Markable<MarkableFloat> OptFloat;
+typedef OptFloat_t OptFloat;
 	
 struct Vec3 {
 	float x, y, z;
@@ -18,26 +27,26 @@ struct Quat {
 };
 
 struct ControllerInput {
-	float throttle;
-	float steer;
-	float pitch;
-	float yaw;
-	float roll;
-	unsigned long handbrake : 1;
-	unsigned long jump : 1;
-	unsigned long boost : 1;
+    float throttle;
+    float steer;
+    float pitch;
+    float yaw;
+    float roll;
+    unsigned long handbrake : 1;
+    unsigned long jump : 1;
+    unsigned long boost : 1;
 	unsigned long useItem : 1;
 	unsigned long itemTarget;
 };
 
-template<typename V = Vec3, typename Q = Quat>
 struct PhysObj {
-	Q orientation;
-	V position;
-	V velocity;
-	V angularVelocity;
+	Quat orientation;
+	Vec3 position;
+	Vec3 velocity;
+	Vec3 angularVelocity;
 };
-struct Ball : PhysObj<> {
+
+struct Ball : PhysObj {
 	float radius;
 };
 
@@ -48,7 +57,7 @@ struct Wheel {
 	unsigned int contact : 1;
 	unsigned int reset : 1;
 };
-struct Car : PhysObj<> {
+struct Car : PhysObj {
 	ControllerInput input;
 	float boost;
 	unsigned char team;
@@ -59,7 +68,7 @@ struct Car : PhysObj<> {
 	int flippedAt;
 
 	// front left, front right, back left, back right
-	std::array<Wheel, 4> wheels;
+	ARRAY(Wheel, 4, wheels);
 	union {
 		struct {
 			unsigned int jumped : 1;
@@ -80,18 +89,24 @@ struct StateSetVec3 {
 struct StateSetQuat {
 	OptFloat x, y, z, w;
 };
+struct StateSetPhysObj {
+	Quat orientation;
+	Vec3 position;
+	Vec3 velocity;
+	Vec3 angularVelocity;
+};
 
-struct StateSetBall : PhysObj<StateSetVec3, StateSetQuat> {
+struct StateSetBall : StateSetPhysObj {
 };
 
 struct StateSetWheel {
 	OptFloat spinSpeed;
 };
 
-struct StateSetCar : PhysObj<StateSetVec3, StateSetQuat> {
+struct StateSetCar : StateSetPhysObj {
 	OptFloat boost;
 
-	std::array<StateSetWheel, 4> wheels;
+	ARRAY(StateSetWheel, 4, wheels);
 };
 
 struct DropShotObj {
@@ -103,7 +118,7 @@ struct DropShotObj {
 
 	bool isDropShot;
 	float ballCharge;
-	std::array<TileState, 140> tileDamage;
+	ARRAY(TileState, 140, tileDamage);
 };
 
 struct BoostPad {
@@ -113,13 +128,13 @@ struct BoostPad {
 };
 
 struct GameStateObj {
-	std::array<Car, 64> cars;
+	ARRAY(Car, 64, cars);
 	unsigned int numCars;
 
-	std::array<Ball, 8> balls;
+	ARRAY(Ball, 8, balls);
 	unsigned int numBalls;
 
-	std::array<BoostPad, 128> boostPads;
+	ARRAY(BoostPad, 128, boostPads);
 	unsigned int numBoostPads;
 
 	DropShotObj dropShot;
@@ -136,8 +151,8 @@ struct GameStateObj {
 };
 
 struct StateSetObj {
-	std::array<StateSetCar, 64> cars;
-	std::array<StateSetBall, 8> balls;
+	ARRAY(StateSetCar, 64, cars);
+	ARRAY(StateSetBall, 8, balls);
 	bool setAny;
 };
 
@@ -152,3 +167,7 @@ struct SharedMemoryObj {
 };
 
 }
+
+#ifdef __cplusplus
+	}
+#endif

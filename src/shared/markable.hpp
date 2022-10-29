@@ -4,8 +4,6 @@
 
 
 
-namespace RLBotBM::Shared {
-
 struct MarkableFloat {
 	typedef float ValueType;
 	static constexpr float markedValue() noexcept { return std::numeric_limits<float>::quiet_NaN(); }
@@ -36,5 +34,3 @@ public:
 		value = T::markedValue();
 	}
 };
-
-}
