@@ -10,7 +10,8 @@
 
 
 struct RLBotBM_H;
-RLBotBM_H* RLBotBM_create();	// can return null pointers if construction
+// can return null pointers if it fails to connect to the shared memory
+RLBotBM_H* RLBotBM_create();
 void RLBotBM_destroy(RLBotBM_H* handle);
 
 void RLBotBM_getCurrentState(RLBotBM_H* handle, GameStateObj* state);
