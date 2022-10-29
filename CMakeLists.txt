@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.9.4)
 project(RLBotBM VERSION 0.1.0)
 
-option(BUILD_SHARED "Build as a library" OFF)
+option(BUILD_SHARED "Build as a library" ON)
 
 set(CMAKE_VERBOSE_MAKEFILE ON)
 

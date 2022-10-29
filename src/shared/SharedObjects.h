@@ -10,6 +10,8 @@
 	namespace RLBotBM::Shared {
 	extern "C" {
 #else
+	#include <stdbool.h>
+	
 	#define ARRAY(T, N, name) T name[N]
 	typedef float OptFloat_t;
 #endif
