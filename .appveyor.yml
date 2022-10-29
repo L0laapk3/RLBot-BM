@@ -1,0 +1,11 @@
+image: Visual Studio 2022
+platform:
+  - amd64
+
+build_script:
+   - ps: |
+      cmake -B build -G "Ninja" -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DBUILD_SHARED=ON
+      cmake --build build
+
+artifacts:
+  - path: 'build\RLBotBM.dll'
