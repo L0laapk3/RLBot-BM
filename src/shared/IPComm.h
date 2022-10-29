@@ -4,6 +4,8 @@
 #include "shared/CondVar.hpp"
 #include "shared/SharedObjects.h"
 
+#include <stdexcept>
+
 
 namespace RLBotBM::Shared {
 
