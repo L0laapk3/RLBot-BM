@@ -19,11 +19,11 @@ public:
 		}
 		IPCommException(std::string desc) : std::runtime_error((desc + ": " + getLastErrorMessage()).c_str()) {}
 	};
-	struct CreateFileMappingException : public IPCommException { CreateFileMappingException() : IPCommException("Failed to create file mapping object") {} };
-	struct OpenFileMappingException : public IPCommException { OpenFileMappingException() : IPCommException("Failed to open file mapping object") {} };
-	struct MapViewOfFileException : public IPCommException { MapViewOfFileException() : IPCommException("Failed to open map view of file") {} };
-	struct CreateSemaphoreException : public IPCommException { CreateSemaphoreException() : IPCommException("Failed to create semaphore") {} };
-	struct SharedMemoryExistsException : public IPCommException { SharedMemoryExistsException() : IPCommException("Shared memory already exists") {} };
+	struct CreateFileMappingException        : public IPCommException { CreateFileMappingException()        : IPCommException("Failed to create file mapping object") {} };
+	struct OpenFileMappingException          : public IPCommException { OpenFileMappingException()          : IPCommException("Failed to open file mapping object") {} };
+	struct MapViewOfFileException            : public IPCommException { MapViewOfFileException()            : IPCommException("Failed to open map view of file") {} };
+	struct CreateSemaphoreException          : public IPCommException { CreateSemaphoreException()          : IPCommException("Failed to create semaphore") {} };
+	struct SharedMemoryExistsException       : public IPCommException { SharedMemoryExistsException()       : IPCommException("Shared memory already exists") {} };
 	struct SharedMemoryDoesNotExistException : public IPCommException { SharedMemoryDoesNotExistException() : IPCommException("Shared memory does not exist") {} };
 
 
