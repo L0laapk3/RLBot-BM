@@ -22,9 +22,11 @@ typedef OptFloat_t OptFloat;
 struct Vec3 {
 	float x, y, z;
 };
+typedef struct Vec3 Vec3;
 struct Quat {
 	float x, y, z, w;
 };
+typedef struct Quat Quat;
 
 struct ControllerInput {
     float throttle;
@@ -38,17 +40,18 @@ struct ControllerInput {
 	unsigned long useItem : 1;
 	unsigned long itemTarget;
 };
+typedef struct ControllerInput ControllerInput;
 
-struct PhysObj {
+
+struct Ball {
 	Quat orientation;
 	Vec3 position;
 	Vec3 velocity;
 	Vec3 angularVelocity;
-};
 
-struct Ball : PhysObj {
 	float radius;
 };
+typedef struct Ball Ball;
 
 struct Wheel {
 	float spinSpeed;
@@ -57,7 +60,14 @@ struct Wheel {
 	unsigned int contact : 1;
 	unsigned int reset : 1;
 };
-struct Car : PhysObj {
+typedef struct Wheel Wheel;
+
+struct Car {
+	Quat orientation;
+	Vec3 position;
+	Vec3 velocity;
+	Vec3 angularVelocity;
+
 	ControllerInput input;
 	float boost;
 	unsigned char team;
@@ -81,33 +91,42 @@ struct Car : PhysObj {
 		unsigned int flags;
 	};
 };
+typedef struct Car Car;
 
 struct StateSetVec3 {
 	OptFloat x, y, z;
 };
+typedef struct StateSetVec3 StateSetVec3;
 
 struct StateSetQuat {
 	OptFloat x, y, z, w;
 };
-struct StateSetPhysObj {
-	Quat orientation;
-	Vec3 position;
-	Vec3 velocity;
-	Vec3 angularVelocity;
-};
+typedef struct StateSetQuat StateSetQuat;
 
-struct StateSetBall : StateSetPhysObj {
+struct StateSetBall {
+	StateSetQuat orientation;
+	StateSetVec3 position;
+	StateSetVec3 velocity;
+	StateSetVec3 angularVelocity;
 };
+typedef struct StateSetBall StateSetBall;
 
 struct StateSetWheel {
 	OptFloat spinSpeed;
 };
+typedef struct StateSetWheel StateSetWheel;
 
-struct StateSetCar : StateSetPhysObj {
+struct StateSetCar {
+	StateSetQuat orientation;
+	StateSetVec3 position;
+	StateSetVec3 velocity;
+	StateSetVec3 angularVelocity;
+
 	OptFloat boost;
 
 	ARRAY(StateSetWheel, 4, wheels);
 };
+typedef struct StateSetCar StateSetCar;
 
 struct DropShotObj {
 	enum TileState : unsigned char {
@@ -120,12 +139,15 @@ struct DropShotObj {
 	float ballCharge;
 	ARRAY(TileState, 140, tileDamage);
 };
+typedef struct DropShotObj DropShotObj;
 
 struct BoostPad {
 	int pickupTick; // 0 if has respawned
 	bool isBig;
 	Vec3 position;
 };
+typedef struct BoostPad BoostPad;
+
 
 struct GameStateObj {
 	ARRAY(Car, 64, cars);
@@ -149,12 +171,14 @@ struct GameStateObj {
 		unsigned int flags;
 	};
 };
+typedef struct GameStateObj GameStateObj;
 
 struct StateSetObj {
 	ARRAY(StateSetCar, 64, cars);
 	ARRAY(StateSetBall, 8, balls);
 	bool setAny;
 };
+typedef struct StateSetObj StateSetObj;
 
 struct SharedMemoryObj {
 	unsigned int version;
@@ -165,6 +189,7 @@ struct SharedMemoryObj {
 
 	StateSetObj stateSetObj;
 };
+typedef struct SharedMemoryObj SharedMemoryObj;
 
 #ifdef __cplusplus
 	}

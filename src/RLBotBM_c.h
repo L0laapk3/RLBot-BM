@@ -10,6 +10,8 @@
 
 
 struct RLBotBM_H;
+typedef struct RLBotBM_H RLBotBM_H;
+
 // can return null pointers if it fails to connect to the shared memory
 __declspec(dllexport) RLBotBM_H* RLBotBM_create();
 
