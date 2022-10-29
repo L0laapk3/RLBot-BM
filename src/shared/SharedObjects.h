@@ -15,7 +15,7 @@
 
 namespace RLBotBM::Shared {
 
-constexpr unsigned int VERSION = 8;
+const unsigned int VERSION = 8;
 
 typedef OptFloat_t OptFloat;
 	
