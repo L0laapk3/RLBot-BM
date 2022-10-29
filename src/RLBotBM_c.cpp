@@ -12,7 +12,7 @@ extern "C" {
 RLBotBM_H* RLBotBM_create() {
 	try {
 		return reinterpret_cast<RLBotBM_H*>(new RLBotBM());
-	} catch (IPComm::IPCommException& e) {
+	} catch (std::runtime_error& e) {
 		std::cerr << e.what() << std::endl;
 		return nullptr;
 	}
