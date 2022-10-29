@@ -2,18 +2,18 @@
 
 #ifdef __cplusplus
 	#include <array>
-	#define ARRAY(T, N, name) std::array<T, N> name
-
 	#include "markable.hpp"
+
+	#define ARRAY(T, N, name) std::array<T, N> name
 	typedef Markable<MarkableFloat> OptFloat_t;
 
+	namespace RLBotBM::Shared {
 	extern "C" {
 #else
 	#define ARRAY(T, N, name) T name[N]
 	typedef float OptFloat_t;
 #endif
 
-namespace RLBotBM::Shared {
 
 const unsigned int VERSION = 8;
 
@@ -166,8 +166,7 @@ struct SharedMemoryObj {
 	StateSetObj stateSetObj;
 };
 
-}
-
 #ifdef __cplusplus
+	}
 	}
 #endif
