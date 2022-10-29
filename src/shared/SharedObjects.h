@@ -11,7 +11,7 @@
 	extern "C" {
 #else
 	#include <stdbool.h>
-	
+
 	#define ARRAY(T, N, name) T name[N]
 	typedef float OptFloat_t;
 #endif
@@ -139,7 +139,7 @@ struct DropShotObj {
 
 	bool isDropShot;
 	float ballCharge;
-	ARRAY(TileState, 140, tileDamage);
+	ARRAY(enum TileState, 140, tileDamage);
 };
 typedef struct DropShotObj DropShotObj;
 
