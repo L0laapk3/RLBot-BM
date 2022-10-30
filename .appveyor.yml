@@ -6,6 +6,9 @@ build_script:
    - ps: |  # Builds a dynamic library, as some languages like python only support dynamic libraries.
       cmake -B build -G "Ninja" -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_BUILD_TYPE=Release -DBUILD_DLL=ON
       cmake --build build
+      cmake -B build -G "Ninja" -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_BUILD_TYPE=Release
+      cmake --build build
 
 artifacts:
-  - path: 'build\RLBot-BM.dll'
+  - path: 'build\RLBot-BM_dynamic.dll'
+  - path: 'build\RLBot-BM.lib'
