@@ -28,4 +28,4 @@ This has a number of advantages:
 * Rumble items
 
 ## Example bot:
-[RLBotBM-RLUtilitiesCPPExampleBot](https://github.com/L0laapk3/RLBotBM-RLUtilitiesCPPExampleBot).
+[RLBot-BM_RLUtilitiesCPPExampleBot](https://github.com/L0laapk3/RLBot-BM_RLUtilitiesCPPExampleBot).
