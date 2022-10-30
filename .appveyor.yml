@@ -10,5 +10,5 @@ build_script:
       cmake --build build
 
 artifacts:
-  - path: 'build\RLBot-BM_dynamic.dll'
+  - path: 'build\RLBot-BM.dll'
   - path: 'build\RLBot-BM.lib'
