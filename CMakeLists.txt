@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.9.4)
-project(RLBotBM VERSION 0.1.0)
+project(RLBot-BM VERSION 0.1.0)
 
 option(BUILD_DLL "Build dynamic library instead of static one" OFF)
 
@@ -24,4 +24,3 @@ set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_RELEASE} -g -gcodeview -D_
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
 include(CPack) 
- 
