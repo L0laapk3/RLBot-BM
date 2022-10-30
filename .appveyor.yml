@@ -8,4 +8,4 @@ build_script:
       cmake --build build
 
 artifacts:
-  - path: 'build\RLBotBM.dll'
+  - path: 'build\RLBot-BM.dll'
