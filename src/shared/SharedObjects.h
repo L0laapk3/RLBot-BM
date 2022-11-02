@@ -141,6 +141,7 @@ struct DropShotObj {
 	bool isDropShot;
 	float ballCharge;
 	ARRAY(enum TileState, MAX_DROPSHOT_TILES, tileDamage);
+	unsigned int numTiles;
 };
 typedef struct DropShotObj DropShotObj;
 
