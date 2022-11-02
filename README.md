@@ -14,7 +14,7 @@ RLBot-BM's approach has a number of advantages over RLBot:
 * Dropshot tile data and rumble item type data (rumble TBD)
 * Uses multiple hooks, bots get extra time while the game renders frames in parallel (TBD)
 * Working lockstep functionality that allows bots as much time as required to compute each tick
-* A single ticks information describes the complete (including jump timers, etc) game state on its own, no need to handle every tick and remember things from previous ticks
+* You're not forced to handle and remember every single tick to keep a complete state, the tick packet includes timer information such as when cars were demolished
 
 ## Project status
 
