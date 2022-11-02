@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.9.4)
 project(RLBot-BM VERSION 0.1.0)
 
 option(BUILD_DLL "Build dynamic library instead of static one" OFF)
+option(ENABLE_IPO "Controls link time optimization" ON)
 
 set(CMAKE_VERBOSE_MAKEFILE ON)
 
@@ -17,7 +18,7 @@ endif()
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/src)
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_20)
 
-set_property(TARGET ${PROJECT_NAME} PROPERTY INTERPROCEDURAL_OPTIMIZATION TRUE)
+set_property(TARGET ${PROJECT_NAME} PROPERTY INTERPROCEDURAL_OPTIMIZATION ENABLE_IPO)
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Ofast -DNDEBUG")
 set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_RELEASE} -g -gcodeview -D_DLL")
 

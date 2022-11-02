@@ -3,10 +3,10 @@ platform:
   - amd64
 
 build_script:
-   - ps: |  # Builds a dynamic library, as some languages like python only support dynamic libraries.
-      cmake -B build_dynamic -G "Ninja" -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_BUILD_TYPE=Release -DBUILD_DLL=ON
+   - ps: |  # Builds a dynamic library, as some languages like python only support dynamic libraries. IPO is set to off to be safe
+      cmake -B build_dynamic -G "Ninja" -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_BUILD_TYPE=Release -DBUILD_DLL=ON -DDENABLE_IPO=OFF
       cmake --build build_dynamic
-      cmake -B build -G "Ninja" -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_BUILD_TYPE=Release
+      cmake -B build -G "Ninja" -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_BUILD_TYPE=Release -DDENABLE_IPO=OFF
       cmake --build build
 
 artifacts:
