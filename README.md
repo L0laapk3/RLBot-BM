@@ -20,5 +20,6 @@ RLBot-BM's approach has a number of advantages over RLBot:
 
 All the features listed above, except the ones listed as TBD, are fully implemented and functional.
 
-## Example bots:
+## Example bots
 * **CPP**: [RLBot-BM_RLUtilitiesCPPExampleBot](https://github.com/L0laapk3/RLBot-BM_RLUtilitiesCPPExampleBot)
+* **rust**: (no example bot yet, only a framework) [rlbot-bm-rust](https://github.com/LHolten/rlbot-bm-rust)
