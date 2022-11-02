@@ -9,7 +9,7 @@ RLBot-BM's approach has a number of advantages:
 * Tick perfect, no more dropped ticks when the framerate dips
 * Zero-latency, bots can respond immediately in the next tick
 * Guarantees with regards to minimum provided computation time for each tick (currently 4ms)
-* Extra information is provided such as per wheel contact information
+* The GameState is complete: it includes extra information not found in RLBot such as individual wheel contact and suspension distance.
 * Tick perfect state setting
 * Dropshot tile data and rumble item type data (rumble TBD)
 * Uses multiple hooks, bots get extra time while the game renders frames in parallel (TBD)
