@@ -19,6 +19,11 @@
 
 const unsigned int VERSION = 8;
 
+const unsigned int MAX_CARS = 64;
+const unsigned int MAX_BALLS = 8;
+const unsigned int MAX_BOOST_PADS = 128;
+const unsigned int MAX_DROPSHOT_TILES = 140;
+
 typedef OptFloat_t OptFloat;
 	
 struct Vec3 {
@@ -31,14 +36,14 @@ struct Quat {
 typedef struct Quat Quat;
 
 struct ControllerInput {
-    float throttle;
-    float steer;
-    float pitch;
-    float yaw;
-    float roll;
-    unsigned long handbrake : 1;
-    unsigned long jump : 1;
-    unsigned long boost : 1;
+	float throttle;
+	float steer;
+	float pitch;
+	float yaw;
+	float roll;
+	unsigned long handbrake : 1;
+	unsigned long jump : 1;
+	unsigned long boost : 1;
 	unsigned long useItem : 1;
 	unsigned long itemTarget;
 };
@@ -81,17 +86,13 @@ struct Car {
 
 	// front left, front right, back left, back right
 	ARRAY(Wheel, 4, wheels);
-	union {
-		struct {
-			unsigned int jumped : 1;
-			unsigned int hasFlip : 1;
-			unsigned int superSonic : 1;
-			unsigned int demolished : 1;
-			unsigned int bot : 1;
-			unsigned int RLBotBMControlled : 1;
-		};
-		unsigned int flags;
-	};
+	
+	unsigned int jumped : 1;
+	unsigned int hasFlip : 1;
+	unsigned int superSonic : 1;
+	unsigned int demolished : 1;
+	unsigned int bot : 1;
+	unsigned int RLBotBMControlled : 1;
 };
 typedef struct Car Car;
 
@@ -139,7 +140,7 @@ struct DropShotObj {
 
 	bool isDropShot;
 	float ballCharge;
-	ARRAY(enum TileState, 140, tileDamage);
+	ARRAY(enum TileState, MAX_DROPSHOT_TILES, tileDamage);
 };
 typedef struct DropShotObj DropShotObj;
 
@@ -152,13 +153,13 @@ typedef struct BoostPad BoostPad;
 
 
 struct GameStateObj {
-	ARRAY(Car, 64, cars);
+	ARRAY(Car, MAX_CARS, cars);
 	unsigned int numCars;
 
-	ARRAY(Ball, 8, balls);
+	ARRAY(Ball, MAX_BALLS, balls);
 	unsigned int numBalls;
 
-	ARRAY(BoostPad, 128, boostPads);
+	ARRAY(BoostPad, MAX_BOOST_PADS, boostPads);
 	unsigned int numBoostPads;
 
 	DropShotObj dropShot;
@@ -176,8 +177,8 @@ struct GameStateObj {
 typedef struct GameStateObj GameStateObj;
 
 struct StateSetObj {
-	ARRAY(StateSetCar, 64, cars);
-	ARRAY(StateSetBall, 8, balls);
+	ARRAY(StateSetCar, MAX_CARS, cars);
+	ARRAY(StateSetBall, MAX_BALLS, balls);
 	bool setAny;
 };
 typedef struct StateSetObj StateSetObj;
