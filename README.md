@@ -5,7 +5,7 @@
 RLBot-BM is a library that replaces the critical path of [RLBot](https://rlbot.org/). 
 It is build ontop of RLBot, and remains backwards compatible, but the input and output data is routed through bakkesmod instead.
 
-RLBot-BM's approach has a number of advantages:
+RLBot-BM's approach has a number of advantages over RLBot:
 * Tick perfect, no more dropped ticks when the framerate dips
 * Zero-latency, bots can respond immediately in the next tick
 * Guarantees with regards to minimum provided computation time for each tick (currently 4ms)
