@@ -83,6 +83,7 @@ struct Car {
 	Vec3 hitboxOffset;
 
 	int demolishedAt;
+	int jumpedAt;
 	int flippedAt;
 
 	// front left, front right, back left, back right
