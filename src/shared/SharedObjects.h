@@ -154,6 +154,16 @@ typedef struct BoostPad BoostPad;
 
 
 struct GameStateObj {
+	int tick;
+
+	union {
+		struct {
+			unsigned int roundActive : 1;
+			unsigned int matchEnded : 1;
+		};
+		unsigned int flags;
+	};
+
 	ARRAY(Car, MAX_CARS, cars);
 	unsigned int numCars;
 
@@ -164,16 +174,6 @@ struct GameStateObj {
 	unsigned int numBoostPads;
 
 	DropShotObj dropShot;
-
-	int tick;
-
-	union {
-		struct {
-			unsigned int roundActive : 1;
-			unsigned int matchEnded : 1;
-		};
-		unsigned int flags;
-	};
 };
 typedef struct GameStateObj GameStateObj;
 
@@ -187,11 +187,11 @@ typedef struct StateSetObj StateSetObj;
 struct SharedMemoryObj {
 	unsigned int version;
 	
-	GameStateObj gameState;
-	
 	int nTickWaiters;
 
 	StateSetObj stateSetObj;
+	
+	GameStateObj gameState;
 };
 typedef struct SharedMemoryObj SharedMemoryObj;
 
