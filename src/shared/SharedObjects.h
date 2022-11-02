@@ -41,10 +41,10 @@ struct ControllerInput {
 	float pitch;
 	float yaw;
 	float roll;
-	unsigned long handbrake : 1;
-	unsigned long jump : 1;
-	unsigned long boost : 1;
-	unsigned long useItem : 1;
+	unsigned int handbrake : 1;
+	unsigned int jump : 1;
+	unsigned int boost : 1;
+	unsigned int useItem : 1;
 	unsigned long itemTarget;
 };
 typedef struct ControllerInput ControllerInput;
@@ -65,7 +65,7 @@ struct Wheel {
 	float suspensionDistance;
 	float frictionCurveInput;	
 	unsigned int contact : 1;
-	unsigned int reset : 1;
+	unsigned int reset : 1; // true if the wheel had contact after jumping (for flip resets)
 };
 typedef struct Wheel Wheel;
 
