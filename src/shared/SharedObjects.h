@@ -90,7 +90,7 @@ struct Car {
 	ARRAY(Wheel, 4, wheels);
 	
 	unsigned int jumped : 1;
-	unsigned int hasFlip : 1;
+	unsigned int flipped : 1;
 	unsigned int superSonic : 1;
 	unsigned int demolished : 1;
 	unsigned int bot : 1;
