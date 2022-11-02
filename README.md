@@ -12,8 +12,8 @@ This has a number of advantages:
 * Extra information is provided such as per wheel contact information
 * Tick perfect state setting
 * Dropshot tile data and rumble item type data
-* Uses multiple hooks, bots get extra time while the game renders frames in parallel (NYI)
-* Working lockstep functionality that allows bots as much time as required to compute each tick (NYI)
+* Uses multiple hooks, bots get extra time while the game renders frames in parallel (TBD)
+* Working lockstep functionality that allows bots as much time as required to compute each tick
 * A single ticks information describes the complete (including jump timers, etc) game state on its own, no need to handle every tick and remember things from previous ticks
 
 ## Project status
