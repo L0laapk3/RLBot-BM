@@ -17,10 +17,10 @@
 #endif
 
 
-const unsigned int VERSION = 8;
+const unsigned int VERSION = 9;
 
 const unsigned int MAX_CARS = 64;
-const unsigned int MAX_BALLS = 8;
+const unsigned int MAX_BALLS = 64;
 const unsigned int MAX_BOOST_PADS = 128;
 const unsigned int MAX_DROPSHOT_TILES = 140;
 
