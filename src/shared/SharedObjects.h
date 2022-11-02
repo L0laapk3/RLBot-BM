@@ -17,7 +17,8 @@
 #endif
 
 
-const unsigned int VERSION = 9;
+const unsigned int VERSION_MAJOR = 9;
+const unsigned int VERSION_MINOR = 0;
 
 const unsigned int MAX_CARS = 64;
 const unsigned int MAX_BALLS = 64;
@@ -185,7 +186,8 @@ struct StateSetObj {
 typedef struct StateSetObj StateSetObj;
 
 struct SharedMemoryObj {
-	unsigned int version;
+	unsigned int versionMajor;
+	unsigned int versionMinor;
 	
 	int nTickWaiters;
 
