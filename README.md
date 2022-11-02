@@ -14,6 +14,7 @@ This has a number of advantages:
 * Dropshot tile data and rumble item type data
 * Uses multiple hooks, bots get extra time while the game renders frames in parallel (NYI)
 * Working lockstep functionality that allows bots as much time as required to compute each tick (NYI)
+* A single ticks information describes the complete (including jump timers, etc) game state on its own, no need to keep a history.
 
 ## Project status
 
