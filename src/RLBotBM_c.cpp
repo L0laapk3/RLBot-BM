@@ -1,6 +1,6 @@
 #include "RLBotBM_c.h"
 #include "RLBotBM.h"
-#include "shared/IPComm.h"
+#include "shared/Exception.h"
 
 #include <iostream>
 
@@ -12,7 +12,7 @@ extern "C" {
 RLBotBM_H* RLBotBM_create() {
 	try {
 		return reinterpret_cast<RLBotBM_H*>(new RLBotBM());
-	} catch (std::runtime_error& e) {
+	} catch (Shared::RLBotBMException& e) {
 		std::cerr << e.what() << std::endl;
 		return nullptr;
 	}

@@ -1,7 +1,11 @@
 #pragma once
 
+#include "shared/Exception.h"
 
+
+#ifndef NOMINMAX 
 #define NOMINMAX
+#endif
 #include <windows.h>
 
 #include <string>
@@ -21,16 +25,15 @@ public:
 	CondVar_SingleRecipient(const std::string name) {
 		auto semName = name + "/sem/";
 		hSem = CreateSemaphore(NULL, 0, std::numeric_limits<LONG>::max(), semName.c_str());
-		if (hSem == NULL) {
-			throw std::exception();
-		}
+		if (hSem == NULL)
+			throw CreateSemaphoreException();
 		ReleaseSemaphore(hSem, 1, NULL);
 
 		auto semLockName = name + "/semLock/";
 		hSemLock = CreateSemaphore(NULL, 0, 1, semLockName.c_str());
 		if (hSemLock == NULL) {
 			CloseHandle(hSem);
-			throw std::exception();
+			throw CreateSemaphoreException();
 		}
 		ReleaseSemaphore(hSemLock, 1, NULL);
 	}
