@@ -103,7 +103,6 @@ struct Car {
 	int flippedAt;
 
 	RumblePowerupType rumblePowerupType;
-	int rumblePowerupReceivedAt;
 	int rumblePowerupExpiresAt; // 0 until activated
 
 	// front left, front right, back left, back right
@@ -160,7 +159,6 @@ struct DropShotObj {
 		Open = 2,
 	};
 
-	bool isDropShot;
 	float ballCharge;
 	ARRAY(enum TileState, MAX_DROPSHOT_TILES, tileDamage);
 	unsigned int numTiles;
@@ -195,6 +193,8 @@ struct GameStateObj {
 	ARRAY(BoostPad, MAX_BOOST_PADS, boostPads);
 	unsigned int numBoostPads;
 
+	bool isDropShot;
+	bool isRumble;
 	DropShotObj dropShot;
 };
 typedef struct GameStateObj GameStateObj;
