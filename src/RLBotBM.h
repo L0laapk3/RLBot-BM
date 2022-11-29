@@ -3,6 +3,7 @@
 #include <stdexcept>
 
 #include "shared/SharedObjects.h"
+#include "shared/Exception.h"
 #include "shared/IPComm.h"
 
 
@@ -33,7 +34,7 @@ public:
 	StateSetObj& getStateSetObj();
 };
 
-class RLBotBMVersionMisMatchException : public RLBotBMException {
+class RLBotBMVersionMisMatchException : public Shared::RLBotBMException {
 public:
 	RLBotBMVersionMisMatchException(unsigned int currentMajorVersion, unsigned int currentMinorVersion, unsigned int expectedMajorVersion, unsigned int expectedMinorVersion) : RLBotBMException("RLBotBM: Shared memory version mismatch. Has " + std::to_string(currentMajorVersion) + "." + std::to_string(currentMinorVersion) + ", but server requires " + std::to_string(expectedMajorVersion) + "." + std::to_string(expectedMinorVersion)) {}
 };
