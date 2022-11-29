@@ -1,12 +1,14 @@
 #pragma once
 
 #include <limits>
+#include <cmath>
 
 
 
 struct MarkableFloat {
 	typedef float ValueType;
 	static constexpr float markedValue() noexcept { return std::numeric_limits<float>::quiet_NaN(); }
+	static constexpr bool isMarked(float value) noexcept { return std::isnan(value); }
 };
 
 template <typename T>
@@ -28,7 +30,7 @@ public:
 		return value;
 	}
 	bool hasValue() const {
-		return value != T::markedValue();
+		return T::isMarked(value);
 	}
 	void clear() {
 		value = T::markedValue();
