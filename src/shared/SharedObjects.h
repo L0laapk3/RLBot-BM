@@ -194,7 +194,7 @@ struct GameStateObj {
 	unsigned int numBoostPads;
 
 	bool isDropShot;
-	bool isRumble;
+	bool isRumble; // does not work for now :(
 	DropShotObj dropShot;
 };
 typedef struct GameStateObj GameStateObj;

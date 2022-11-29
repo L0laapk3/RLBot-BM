@@ -12,21 +12,8 @@ RLBot-BM's approach has a number of advantages over RLBot:
 * Guarantees with regards to minimum provided computation time for each tick (currently 4ms)
 * The GameState is complete: it includes extra information not found in RLBot such as per wheel contact info and suspension distances
 * Tick perfect state setting
-<<<<<<< HEAD
-* Dropshot tile data and rumble item type data
-* Uses multiple hooks, bots get extra time while the game renders frames in parallel (NYI)
-* Lockstep functionality that allows bots as much time as required to compute each tick without slowing the game to a crawl (NYI)
-
-## Project status
-
-**Working:**
-* All of the above listed features except where stated otherwise
-* Bot controls routed through RLBot-BM
-* Gamestate data routed through RLBot-BM
-* Statesetting routed through RLBot-BM
 * Dropshot tile data
-=======
-* Dropshot tile data and rumble item type data (rumble TBD)
+* Rumble item type and timing data
 * Uses multiple hooks, bots get extra time while the game renders frames in parallel (TBD)
 * Working lockstep functionality that allows bots as much time as required to compute each tick
 * No need to handle and remember every single tick to keep a complete state, the tick packet includes timer information such as when cars were demolished
@@ -34,8 +21,11 @@ RLBot-BM's approach has a number of advantages over RLBot:
 ## Project status
 
 All the features listed above, except the ones listed as TBD, are fully implemented and functional.
->>>>>>> d0c2bc677ebe946b3702a8705d1711bed82aab79
+
+### Known issues
+
+* isRumble bit is always false
 
 ## Example bots
 * **CPP**: [RLBot-BM_RLUtilitiesCPPExampleBot](https://github.com/L0laapk3/RLBot-BM_RLUtilitiesCPPExampleBot)
-* **rust**: (no example bot yet, only a framework) [rlbot-bm-rust](https://github.com/LHolten/rlbot-bm-rust)
+* **rust**: [rlbot-bm-rust](https://github.com/LHolten/rlbot-bm-rust)
