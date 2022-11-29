@@ -17,10 +17,11 @@
 #endif
 
 
-const unsigned int VERSION = 9;
+const unsigned int VERSION_MAJOR = 9;
+const unsigned int VERSION_MINOR = 0;
 
 const unsigned int MAX_CARS = 64;
-const unsigned int MAX_BALLS = 8;
+const unsigned int MAX_BALLS = 64;
 const unsigned int MAX_BOOST_PADS = 128;
 const unsigned int MAX_DROPSHOT_TILES = 140;
 
@@ -41,10 +42,10 @@ struct ControllerInput {
 	float pitch;
 	float yaw;
 	float roll;
-	unsigned long handbrake : 1;
-	unsigned long jump : 1;
-	unsigned long boost : 1;
-	unsigned long useItem : 1;
+	unsigned int handbrake : 1;
+	unsigned int jump : 1;
+	unsigned int boost : 1;
+	unsigned int useItem : 1;
 	unsigned long itemTarget;
 };
 typedef struct ControllerInput ControllerInput;
@@ -65,7 +66,7 @@ struct Wheel {
 	float suspensionDistance;
 	float frictionCurveInput;	
 	unsigned int contact : 1;
-	unsigned int reset : 1;
+	unsigned int reset : 1; // true if the wheel had contact after jumping (for flip resets)
 };
 
 enum RumblePowerupType {
@@ -98,6 +99,7 @@ struct Car {
 	Vec3 hitboxOffset;
 
 	int demolishedAt;
+	int jumpedAt;
 	int flippedAt;
 
 	RumblePowerupType rumblePowerupType;
@@ -108,7 +110,7 @@ struct Car {
 	ARRAY(Wheel, 4, wheels);
 	
 	unsigned int jumped : 1;
-	unsigned int hasFlip : 1;
+	unsigned int flipped : 1;
 	unsigned int superSonic : 1;
 	unsigned int demolished : 1;
 	unsigned int bot : 1;
@@ -161,6 +163,7 @@ struct DropShotObj {
 	bool isDropShot;
 	float ballCharge;
 	ARRAY(enum TileState, MAX_DROPSHOT_TILES, tileDamage);
+	unsigned int numTiles;
 };
 typedef struct DropShotObj DropShotObj;
 
@@ -173,6 +176,16 @@ typedef struct BoostPad BoostPad;
 
 
 struct GameStateObj {
+	int tick;
+
+	union {
+		struct {
+			unsigned int roundActive : 1;
+			unsigned int matchEnded : 1;
+		};
+		unsigned int flags;
+	};
+
 	ARRAY(Car, MAX_CARS, cars);
 	unsigned int numCars;
 
@@ -183,16 +196,6 @@ struct GameStateObj {
 	unsigned int numBoostPads;
 
 	DropShotObj dropShot;
-
-	int tick;
-
-	union {
-		struct {
-			unsigned int roundActive : 1;
-			unsigned int matchEnded : 1;
-		};
-		unsigned int flags;
-	};
 };
 typedef struct GameStateObj GameStateObj;
 
@@ -204,13 +207,13 @@ struct StateSetObj {
 typedef struct StateSetObj StateSetObj;
 
 struct SharedMemoryObj {
-	unsigned int version;
-	
-	GameStateObj gameState;
+	unsigned int versionMajor, versionMinor;
 	
 	int nTickWaiters;
 
 	StateSetObj stateSetObj;
+	
+	GameStateObj gameState;
 };
 typedef struct SharedMemoryObj SharedMemoryObj;
 

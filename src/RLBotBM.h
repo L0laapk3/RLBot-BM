@@ -33,9 +33,9 @@ public:
 	StateSetObj& getStateSetObj();
 };
 
-class RLBotBMVersionMisMatchException : public std::runtime_error {
+class RLBotBMVersionMisMatchException : public RLBotBMException {
 public:
-	RLBotBMVersionMisMatchException(unsigned int currentVersion, unsigned int expectedVersion) : std::runtime_error("RLBotBM: Shared memory version mismatch. Has " + std::to_string(currentVersion) + ", but server requires " + std::to_string(expectedVersion)) {}
+	RLBotBMVersionMisMatchException(unsigned int currentMajorVersion, unsigned int currentMinorVersion, unsigned int expectedMajorVersion, unsigned int expectedMinorVersion) : RLBotBMException("RLBotBM: Shared memory version mismatch. Has " + std::to_string(currentMajorVersion) + "." + std::to_string(currentMinorVersion) + ", but server requires " + std::to_string(expectedMajorVersion) + "." + std::to_string(expectedMinorVersion)) {}
 };
 
 }
