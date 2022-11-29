@@ -1,6 +1,9 @@
 #include "shared/IPComm.h"
+#include "shared/Exception.h"
 
+#ifndef NOMINMAX 
 #define NOMINMAX
+#endif
 #include <windows.h>
 #include <tchar.h>
 

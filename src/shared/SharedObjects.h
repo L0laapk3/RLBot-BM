@@ -1,45 +1,64 @@
 #pragma once
 
-#include <array>
+#ifdef __cplusplus
+	#include <array>
+	#include "markable.hpp"
 
-#include "markable.hpp"
+	#define ARRAY(T, N, name) std::array<T, N> name
+	typedef Markable<MarkableFloat> OptFloat_t;
 
-namespace RLBotBM::Shared {
+	namespace RLBotBM::Shared {
+	extern "C" {
+#else
+	#include <stdbool.h>
 
-constexpr unsigned int VERSION = 9;
+	#define ARRAY(T, N, name) T name[N]
+	typedef float OptFloat_t;
+#endif
 
-typedef Markable<MarkableFloat> OptFloat;
+
+const unsigned int VERSION = 9;
+
+const unsigned int MAX_CARS = 64;
+const unsigned int MAX_BALLS = 8;
+const unsigned int MAX_BOOST_PADS = 128;
+const unsigned int MAX_DROPSHOT_TILES = 140;
+
+typedef OptFloat_t OptFloat;
 	
 struct Vec3 {
 	float x, y, z;
 };
+typedef struct Vec3 Vec3;
 struct Quat {
 	float x, y, z, w;
 };
+typedef struct Quat Quat;
 
 struct ControllerInput {
-    float throttle;
-    float steer;
-    float pitch;
-    float yaw;
-    float roll;
-    unsigned long handbrake : 1;
-    unsigned long jump : 1;
-    unsigned long boost : 1;
+	float throttle;
+	float steer;
+	float pitch;
+	float yaw;
+	float roll;
+	unsigned long handbrake : 1;
+	unsigned long jump : 1;
+	unsigned long boost : 1;
 	unsigned long useItem : 1;
 	unsigned long itemTarget;
 };
+typedef struct ControllerInput ControllerInput;
 
-template<typename V = Vec3, typename Q = Quat>
-struct PhysObj {
-	Q orientation;
-	V position;
-	V velocity;
-	V angularVelocity;
-};
-struct Ball : PhysObj<> {
+
+struct Ball {
+	Quat orientation;
+	Vec3 position;
+	Vec3 velocity;
+	Vec3 angularVelocity;
+
 	float radius;
 };
+typedef struct Ball Ball;
 
 struct Wheel {
 	float spinSpeed;
@@ -64,7 +83,14 @@ enum RumblePowerupType {
 	TORNADO = 11,
 };
 
-struct Car : PhysObj<> {
+typedef struct Wheel Wheel;
+
+struct Car {
+	Quat orientation;
+	Vec3 position;
+	Vec3 velocity;
+	Vec3 angularVelocity;
+
 	ControllerInput input;
 	float boost;
 	unsigned char team;
@@ -79,40 +105,51 @@ struct Car : PhysObj<> {
 	int rumblePowerupExpiresAt; // 0 until activated
 
 	// front left, front right, back left, back right
-	std::array<Wheel, 4> wheels;
-	union {
-		struct {
-			unsigned int jumped : 1;
-			unsigned int hasFlip : 1;
-			unsigned int superSonic : 1;
-			unsigned int demolished : 1;
-			unsigned int bot : 1;
-			unsigned int RLBotBMControlled : 1;
-		};
-		unsigned int flags;
-	};
+	ARRAY(Wheel, 4, wheels);
+	
+	unsigned int jumped : 1;
+	unsigned int hasFlip : 1;
+	unsigned int superSonic : 1;
+	unsigned int demolished : 1;
+	unsigned int bot : 1;
+	unsigned int RLBotBMControlled : 1;
 };
+typedef struct Car Car;
 
 struct StateSetVec3 {
 	OptFloat x, y, z;
 };
+typedef struct StateSetVec3 StateSetVec3;
 
 struct StateSetQuat {
 	OptFloat x, y, z, w;
 };
+typedef struct StateSetQuat StateSetQuat;
 
-struct StateSetBall : PhysObj<StateSetVec3, StateSetQuat> {
+struct StateSetBall {
+	StateSetQuat orientation;
+	StateSetVec3 position;
+	StateSetVec3 velocity;
+	StateSetVec3 angularVelocity;
 };
+typedef struct StateSetBall StateSetBall;
 
 struct StateSetWheel {
 	OptFloat spinSpeed;
 };
+typedef struct StateSetWheel StateSetWheel;
 
-struct StateSetCar : PhysObj<StateSetVec3, StateSetQuat> {
+struct StateSetCar {
+	StateSetQuat orientation;
+	StateSetVec3 position;
+	StateSetVec3 velocity;
+	StateSetVec3 angularVelocity;
+
 	OptFloat boost;
 
-	std::array<StateSetWheel, 4> wheels;
+	ARRAY(StateSetWheel, 4, wheels);
 };
+typedef struct StateSetCar StateSetCar;
 
 struct DropShotObj {
 	enum TileState : unsigned char {
@@ -123,23 +160,26 @@ struct DropShotObj {
 
 	bool isDropShot;
 	float ballCharge;
-	std::array<TileState, 140> tileDamage;
+	ARRAY(enum TileState, MAX_DROPSHOT_TILES, tileDamage);
 };
+typedef struct DropShotObj DropShotObj;
 
 struct BoostPad {
 	int pickupTick; // 0 if has respawned
 	bool isBig;
 	Vec3 position;
 };
+typedef struct BoostPad BoostPad;
+
 
 struct GameStateObj {
-	std::array<Car, 64> cars;
+	ARRAY(Car, MAX_CARS, cars);
 	unsigned int numCars;
 
-	std::array<Ball, 8> balls;
+	ARRAY(Ball, MAX_BALLS, balls);
 	unsigned int numBalls;
 
-	std::array<BoostPad, 128> boostPads;
+	ARRAY(BoostPad, MAX_BOOST_PADS, boostPads);
 	unsigned int numBoostPads;
 
 	DropShotObj dropShot;
@@ -154,12 +194,14 @@ struct GameStateObj {
 		unsigned int flags;
 	};
 };
+typedef struct GameStateObj GameStateObj;
 
 struct StateSetObj {
-	std::array<StateSetCar, 64> cars;
-	std::array<StateSetBall, 8> balls;
+	ARRAY(StateSetCar, MAX_CARS, cars);
+	ARRAY(StateSetBall, MAX_BALLS, balls);
 	bool setAny;
 };
+typedef struct StateSetObj StateSetObj;
 
 struct SharedMemoryObj {
 	unsigned int version;
@@ -170,5 +212,9 @@ struct SharedMemoryObj {
 
 	StateSetObj stateSetObj;
 };
+typedef struct SharedMemoryObj SharedMemoryObj;
 
-}
+#ifdef __cplusplus
+	}
+	}
+#endif

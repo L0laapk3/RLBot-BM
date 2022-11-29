@@ -1,9 +1,14 @@
 #pragma once
 
+#include "shared/Exception.h"
 
+
+#ifndef NOMINMAX 
 #define NOMINMAX
+#endif
 #include <windows.h>
 #include <string>
+
 
 namespace RLBotBM::Shared {
 
@@ -24,8 +29,13 @@ struct FileMapping {
 				FALSE,                 // do not inherit the name
 				name.c_str());
 		}
-		if (!hMapFile)
-			throw std::exception();
+		if (!hMapFile) {
+			if (create)
+				throw CreateFileMappingException();
+			else
+				throw OpenFileMappingException();
+
+		}
 		
 	}
 
@@ -48,7 +58,7 @@ struct FileMappingView {
 			sizeof(T));
 		
 		if (mem == NULL)
-			throw std::exception();
+			throw MapViewOfFileException();
 	}
 
 	~FileMappingView() {
