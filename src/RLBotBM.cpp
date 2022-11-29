@@ -6,16 +6,16 @@
 namespace RLBotBM {
 
 RLBotBM::RLBotBM() : ipComm(false) {
-	if (ipComm.mem->versionMajor != Shared::VERSION_MAJOR || Shared::VERSION_MINOR > ipComm.mem->versionMinor) {
-		std::cerr << "RLBotBM: Shared memory version mismatch. Has " << Shared::VERSION_MAJOR << "." << Shared::VERSION_MINOR << ", but server requires " << ipComm.mem->versionMajor << "(." << ipComm.mem->versionMinor << ")" << std::endl;
-		throw RLBotBMVersionMisMatchException(Shared::VERSION_MAJOR, Shared::VERSION_MINOR, ipComm.mem->versionMajor, ipComm.mem->versionMinor);
+	if (ipComm.mem->versionMajor != VERSION_MAJOR || VERSION_MINOR > ipComm.mem->versionMinor) {
+		std::cerr << "RLBotBM: Shared memory version mismatch. Has " << VERSION_MAJOR << "." << VERSION_MINOR << ", but server requires " << ipComm.mem->versionMajor << "(." << ipComm.mem->versionMinor << ")" << std::endl;
+		throw RLBotBMVersionMisMatchException(VERSION_MAJOR, VERSION_MINOR, ipComm.mem->versionMajor, ipComm.mem->versionMinor);
 	}
-	if (ipComm.mem->versionMinor != Shared::VERSION_MINOR) {
-		std::cout << "RLBotBM: Shared memory version outdated. Has " << Shared::VERSION_MAJOR << "." << Shared::VERSION_MINOR << ", server has " << ipComm.mem->versionMajor << "." << ipComm.mem->versionMinor << std::endl;
+	if (ipComm.mem->versionMinor != VERSION_MINOR) {
+		std::cout << "RLBotBM: Shared memory version outdated. Has " << VERSION_MAJOR << "." << VERSION_MINOR << ", server has " << ipComm.mem->versionMajor << "." << ipComm.mem->versionMinor << std::endl;
 	}
 }
 
-void RLBotBM::setBotInput(const Shared::ControllerInput& controls, const int carIndex) {
+void RLBotBM::setBotInput(const ControllerInput& controls, const int carIndex) {
 	ipComm.mem->gameState.cars[carIndex].input = controls;
 	ipComm.mem->gameState.cars[carIndex].RLBotBMControlled = true;
 }

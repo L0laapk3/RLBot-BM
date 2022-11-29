@@ -9,14 +9,14 @@
 
 namespace RLBotBM {
 
-typedef Shared::GameStateObj GameState;
-typedef Shared::ControllerInput ControllerInput;
-typedef Shared::Vec3 Vec3;
-typedef Shared::Quat Quat;
-typedef Shared::StateSetObj StateSetObj;
+typedef GameStateObj GameState;
+typedef ControllerInput ControllerInput;
+typedef Vec3 Vec3;
+typedef Quat Quat;
+typedef StateSetObj StateSetObj;
 
 class RLBotBM {
-	Shared::IPComm ipComm;
+	IPComm ipComm;
 	int lastTick = 0;
 	
 public:
@@ -34,7 +34,7 @@ public:
 	StateSetObj& getStateSetObj();
 };
 
-class RLBotBMVersionMisMatchException : public Shared::RLBotBMException {
+class RLBotBMVersionMisMatchException : public RLBotBMException {
 public:
 	RLBotBMVersionMisMatchException(unsigned int currentMajorVersion, unsigned int currentMinorVersion, unsigned int expectedMajorVersion, unsigned int expectedMinorVersion) : RLBotBMException("RLBotBM: Shared memory version mismatch. Has " + std::to_string(currentMajorVersion) + "." + std::to_string(currentMinorVersion) + ", but server requires " + std::to_string(expectedMajorVersion) + "." + std::to_string(expectedMinorVersion)) {}
 };

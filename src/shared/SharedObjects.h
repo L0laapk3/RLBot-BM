@@ -7,7 +7,7 @@
 	#define ARRAY(T, N, name) std::array<T, N> name
 	typedef Markable<MarkableFloat> OptFloat_t;
 
-	namespace RLBotBM::Shared {
+	namespace RLBotBM {
 	extern "C" {
 #else
 	#include <stdbool.h>

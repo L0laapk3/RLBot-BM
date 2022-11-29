@@ -10,7 +10,7 @@
 #include <string>
 
 
-namespace RLBotBM::Shared {
+namespace RLBotBM {
 
 template <typename T>
 struct FileMapping {

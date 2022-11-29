@@ -4,7 +4,6 @@
 
 #ifdef __cplusplus
 	namespace RLBotBM {
-	using namespace Shared;
 	extern "C" {
 #endif
 

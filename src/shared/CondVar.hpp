@@ -13,7 +13,7 @@
 #include <chrono>
 
 
-namespace RLBotBM::Shared {
+namespace RLBotBM {
 
 
 class CondVar_SingleRecipient {
