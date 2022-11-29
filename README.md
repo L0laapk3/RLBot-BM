@@ -13,15 +13,15 @@ This has a number of advantages:
 * Tick perfect state setting
 * Dropshot tile data and rumble item type data
 * Uses multiple hooks, bots get extra time while the game renders frames in parallel (NYI)
-* Working lockstep functionality that allows bots as much time as required to compute each tick (NYI)
+* Lockstep functionality that allows bots as much time as required to compute each tick without slowing the game to a crawl (NYI)
 
 ## Project status
 
 **Working:**
+* All of the above listed features except where stated otherwise
 * Bot controls routed through RLBot-BM
 * Gamestate data routed through RLBot-BM
 * Statesetting routed through RLBot-BM
-* All of the above listed features except where stated otherwise
 * Dropshot tile data
 
 **Planned:**

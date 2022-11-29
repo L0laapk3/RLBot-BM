@@ -6,7 +6,7 @@
 
 namespace RLBotBM::Shared {
 
-constexpr unsigned int VERSION = 8;
+constexpr unsigned int VERSION = 9;
 
 typedef Markable<MarkableFloat> OptFloat;
 	
@@ -48,6 +48,22 @@ struct Wheel {
 	unsigned int contact : 1;
 	unsigned int reset : 1;
 };
+
+enum RumblePowerupType {
+	NONE = 0,
+	HAYMAKER = 1,
+	BOOT = 2,
+	MAGNETIZER = 3,
+	SWAPPER = 4,
+	SPIKES = 5,
+	GRAPPLING_HOOK = 6,
+	POWER_HITTER = 7,
+	PLUNGER = 8,
+	FREEZE = 9,
+	DISRUPTOR = 10,
+	TORNADO = 11,
+};
+
 struct Car : PhysObj<> {
 	ControllerInput input;
 	float boost;
@@ -57,6 +73,10 @@ struct Car : PhysObj<> {
 
 	int demolishedAt;
 	int flippedAt;
+
+	RumblePowerupType rumblePowerupType;
+	int rumblePowerupReceivedAt;
+	int rumblePowerupExpiresAt; // 0 until activated
 
 	// front left, front right, back left, back right
 	std::array<Wheel, 4> wheels;
