@@ -30,7 +30,7 @@ public:
 		return value;
 	}
 	bool hasValue() const {
-		return T::isMarked(value);
+		return !T::isMarked(value);
 	}
 	void clear() {
 		value = T::markedValue();
