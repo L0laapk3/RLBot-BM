@@ -12,7 +12,7 @@ extern "C" {
 RLBotBM_H* RLBotBM_create() {
 	try {
 		return reinterpret_cast<RLBotBM_H*>(new RLBotBM());
-	} catch (Shared::RLBotBMException& e) {
+	} catch (RLBotBMException& e) {
 		std::cerr << e.what() << std::endl;
 		return nullptr;
 	}

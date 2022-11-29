@@ -7,7 +7,7 @@
 #include <windows.h>
 #include <tchar.h>
 
-namespace RLBotBM::Shared {
+namespace RLBotBM {
 
 struct RLBotBMException : public std::runtime_error {
 	static std::string getLastErrorMessage() {

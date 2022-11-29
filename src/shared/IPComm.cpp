@@ -10,7 +10,7 @@
 #include <string>
 
 
-namespace RLBotBM::Shared {
+namespace RLBotBM {
 
 IPComm::IPComm(bool create) :
 	fileMapping("sharedMemory", create),

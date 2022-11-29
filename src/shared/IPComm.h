@@ -6,7 +6,7 @@
 
 
 
-namespace RLBotBM::Shared {
+namespace RLBotBM {
 
 class IPComm {
 public:
