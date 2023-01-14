@@ -12,6 +12,7 @@ RLBotBM::RLBotBM() : RLBotBM(false, "") {
 
 RLBotBM::RLBotBM(bool createFileMapping, const std::string fileMappingSuffix) : ipComm(createFileMapping, fileMappingSuffix) {
 	if (createFileMapping) {
+		*ipComm.mem.mem = SharedMemoryObj{};
 		ipComm.mem->versionMajor = VERSION_MAJOR;
 		ipComm.mem->versionMinor = VERSION_MINOR;
 	} else {

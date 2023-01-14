@@ -16,11 +16,11 @@ typedef Vec3 Vec3;
 typedef Quat Quat;
 typedef StateSetObj StateSetObj;
 
-class RLBotBM {
+class RLBotBM {	
+protected:
 	IPComm ipComm;
 	int lastTick = 0;
 	
-protected:
 	RLBotBM(bool createFileMapping, const std::string fileMappingSuffix);
 	
 public:
