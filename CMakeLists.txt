@@ -1,4 +1,14 @@
 cmake_minimum_required(VERSION 3.9.4)
+
+if(DEFINED RLBot-BM_GUARD)
+    if(NOT RLBot-BM_GUARD STREQUAL ${CMAKE_CURRENT_BINARY_DIR})
+        return() # Project has been already included by someone else
+    endif()
+else()
+    set(RLBot-BM_GUARD ${CMAKE_CURRENT_BINARY_DIR} CACHE INTERNAL "RLBot-BM diamond dependency guard")
+endif()
+
+
 project(RLBot-BM VERSION 0.1.0)
 
 option(BUILD_DLL "Build dynamic library instead of static one" OFF)
