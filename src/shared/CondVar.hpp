@@ -54,23 +54,27 @@ public:
 		return ReleaseSemaphore(hSem, 1, NULL);
 	}
 
-	bool waitOne(DWORD waitTimeMS = INFINITE) {
-		auto res = WaitForSingleObject(hSem, waitTimeMS);
+	bool waitOne(DWORD waitTimeMs = INFINITE) {
+		auto res = WaitForSingleObject(hSem, waitTimeMs);
 		return res == WAIT_OBJECT_0;
 	}
 
-	bool waitN(int count, DWORD waitTimeMS = INFINITE) {
-		auto endTime = std::chrono::high_resolution_clock::now() + std::chrono::milliseconds(waitTimeMS);
-		while (count-- > 0) {
-			if (!waitOne(waitTimeMS))
-				return false;
-			waitTimeMS = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - std::chrono::high_resolution_clock::now()).count();
+	int waitN(int count, DWORD waitTimeMs = INFINITE) {
+		auto endTime = std::chrono::high_resolution_clock::now() + std::chrono::milliseconds(waitTimeMs);
+		while (count > 0) {
+			if (!waitOne(waitTimeMs))
+				return count;
+			auto elapsedMs = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - std::chrono::high_resolution_clock::now()).count();
+			if (elapsedMs >= waitTimeMs)
+				return count;
+			count--;
+			waitTimeMs -= elapsedMs;
 		}
-		return true;
+		return 0;
 	}
 
 	void clearNotifications() {
-		while (waitOne(0)) {}
+		while (waitOne(0)) { }
 	}
 };
 
@@ -104,27 +108,31 @@ public:
 	}
 
 	template<bool preLocked = false>
-	bool waitOne(DWORD waitTimeMS = INFINITE) {
+	bool waitOne(DWORD waitTimeMs = INFINITE) {
 		if (!preLocked)
 			lock();
 		(*nWaiters)++;
 		unlock();
-		return CondVar_SingleRecipient::waitOne(waitTimeMS);
+		return CondVar_SingleRecipient::waitOne(waitTimeMs);
 	}
 	
 	template<bool preLocked = false>
-	bool waitN(int count, DWORD waitTimeMS = INFINITE) {
-		auto endTime = std::chrono::high_resolution_clock::now() + std::chrono::milliseconds(waitTimeMS);
+	int waitN(int count, DWORD waitTimeMs = INFINITE) {
+		auto endTime = std::chrono::high_resolution_clock::now() + std::chrono::milliseconds(waitTimeMs);
 		bool locked = preLocked;
-		while (count-- > 0) {
+		while (count > 0) {
 			if (!locked)
 				lock();
-			if (!waitOne<true>(waitTimeMS))
-				return false;
+			if (!waitOne<true>(waitTimeMs))
+				return count;
 			locked = false;
-			waitTimeMS = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - std::chrono::high_resolution_clock::now()).count();
+			auto elapsedMs = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - std::chrono::high_resolution_clock::now()).count();
+			if (elapsedMs >= waitTimeMs)
+				return count;
+			count--;
+			waitTimeMs -= elapsedMs;
 		}
-		return true;
+		return count;
 	}
 };
 
