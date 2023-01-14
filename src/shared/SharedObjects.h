@@ -17,7 +17,7 @@
 #endif
 
 
-const unsigned int VERSION_MAJOR = 9;
+const unsigned int VERSION_MAJOR = 10;
 const unsigned int VERSION_MINOR = 0;
 
 const unsigned int MAX_CARS = 64;
@@ -62,9 +62,6 @@ struct Ball {
 typedef struct Ball Ball;
 
 struct Wheel {
-	float spinSpeed;
-	float suspensionDistance;
-	float frictionCurveInput;	
 	unsigned int contact : 1;
 	unsigned int reset : 1; // true if the wheel had contact after jumping (for flip resets)
 };
@@ -135,11 +132,6 @@ struct StateSetBall {
 };
 typedef struct StateSetBall StateSetBall;
 
-struct StateSetWheel {
-	OptFloat spinSpeed;
-};
-typedef struct StateSetWheel StateSetWheel;
-
 struct StateSetCar {
 	StateSetQuat orientation;
 	StateSetVec3 position;
@@ -147,8 +139,6 @@ struct StateSetCar {
 	StateSetVec3 angularVelocity;
 
 	OptFloat boost;
-
-	ARRAY(StateSetWheel, 4, wheels);
 };
 typedef struct StateSetCar StateSetCar;
 
