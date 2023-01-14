@@ -4,6 +4,8 @@
 	#include <array>
 	#include "markable.hpp"
 
+	#define INHERIT_HEAD(T) : public T
+	#define INHERIT_BODY(T) 
 	#define ARRAY(T, N, name) std::array<T, N> name
 	typedef Markable<MarkableFloat> OptFloat_t;
 
@@ -12,6 +14,8 @@
 #else
 	#include <stdbool.h>
 
+	#define INHERIT_HEAD(T) 
+	#define INHERIT_BODY(T) T base
 	#define ARRAY(T, N, name) T name[N]
 	typedef float OptFloat_t;
 #endif
@@ -36,6 +40,14 @@ struct Quat {
 };
 typedef struct Quat Quat;
 
+struct PhysObj {
+	Quat orientation;
+	Vec3 position;
+	Vec3 velocity;
+	Vec3 angularVelocity;
+};
+typedef struct PhysObj PhysObj;
+
 struct ControllerInput {
 	float throttle;
 	float steer;
@@ -51,11 +63,8 @@ struct ControllerInput {
 typedef struct ControllerInput ControllerInput;
 
 
-struct Ball {
-	Quat orientation;
-	Vec3 position;
-	Vec3 velocity;
-	Vec3 angularVelocity;
+struct Ball INHERIT_HEAD(PhysObj) {
+	INHERIT_BODY(PhysObj);
 
 	float radius;
 };
@@ -83,11 +92,8 @@ enum RumblePowerupType {
 
 typedef struct Wheel Wheel;
 
-struct Car {
-	Quat orientation;
-	Vec3 position;
-	Vec3 velocity;
-	Vec3 angularVelocity;
+struct Car INHERIT_HEAD(PhysObj) {
+	INHERIT_BODY(PhysObj);
 
 	ControllerInput input;
 	float boost;
@@ -124,19 +130,21 @@ struct StateSetQuat {
 };
 typedef struct StateSetQuat StateSetQuat;
 
-struct StateSetBall {
-	StateSetQuat orientation;
-	StateSetVec3 position;
-	StateSetVec3 velocity;
-	StateSetVec3 angularVelocity;
+struct StateSetPhysObj {
+	Quat orientation;
+	Vec3 position;
+	Vec3 velocity;
+	Vec3 angularVelocity;
+};
+typedef struct StateSetPhysObj StateSetPhysObj;
+
+struct StateSetBall INHERIT_HEAD(StateSetPhysObj) {
+	INHERIT_BODY(StateSetPhysObj);
 };
 typedef struct StateSetBall StateSetBall;
 
-struct StateSetCar {
-	StateSetQuat orientation;
-	StateSetVec3 position;
-	StateSetVec3 velocity;
-	StateSetVec3 angularVelocity;
+struct StateSetCar INHERIT_HEAD(StateSetPhysObj) {
+	INHERIT_BODY(StateSetPhysObj);
 
 	OptFloat boost;
 };
