@@ -5,7 +5,12 @@
 
 namespace RLBotBM {
 
-void RLBotBM::versionCheck() {
+
+RLBotBM::RLBotBM() : RLBotBM(false, "") {
+
+}
+
+RLBotBM::RLBotBM(bool createFileMapping, const std::string fileMappingSuffix) : ipComm(createFileMapping, fileMappingSuffix) {
 	if (ipComm.mem->versionMajor != VERSION_MAJOR || VERSION_MINOR > ipComm.mem->versionMinor) {
 		std::cerr << "RLBotBM: Shared memory version mismatch. Has " << VERSION_MAJOR << "." << VERSION_MINOR << ", but server requires " << ipComm.mem->versionMajor << "(." << ipComm.mem->versionMinor << ")" << std::endl;
 		throw RLBotBMVersionMisMatchException(VERSION_MAJOR, VERSION_MINOR, ipComm.mem->versionMajor, ipComm.mem->versionMinor);
@@ -13,13 +18,6 @@ void RLBotBM::versionCheck() {
 	if (ipComm.mem->versionMinor != VERSION_MINOR) {
 		std::cout << "RLBotBM: Shared memory version outdated. Has " << VERSION_MAJOR << "." << VERSION_MINOR << ", server has " << ipComm.mem->versionMajor << "." << ipComm.mem->versionMinor << std::endl;
 	}
-}
-
-RLBotBM::RLBotBM() : ipComm(false) {
-	versionCheck();
-}
-RLBotBM::RLBotBM(const std::string fileMappingSuffix) : ipComm(false, fileMappingSuffix) {
-	versionCheck();
 }
 
 void RLBotBM::setBotInput(const ControllerInput& controls, const int carIndex) {

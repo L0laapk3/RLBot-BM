@@ -19,9 +19,8 @@ typedef StateSetObj StateSetObj;
 class RLBotBM {
 	IPComm ipComm;
 	int lastTick = 0;
-	void versionCheck();
 protected:
-	RLBotBM(const std::string fileMappingSuffix);
+	RLBotBM(bool createFileMapping, const std::string fileMappingSuffix);
 	
 public:
 	RLBotBM();
