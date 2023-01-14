@@ -12,8 +12,9 @@
 
 namespace RLBotBM {
 
-IPComm::IPComm(bool create) :
-	fileMapping("sharedMemory", create),
+
+IPComm::IPComm(bool create, const std::string fileMappingSuffix) :
+	fileMapping("sharedMemory" + fileMappingSuffix, create),
 	mem(fileMapping),
 	cvWaitTick("cvWaitTick", &mem->nTickWaiters),
 	cvWaitControls("cvWaitControls") {

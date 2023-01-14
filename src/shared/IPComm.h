@@ -10,7 +10,7 @@ namespace RLBotBM {
 
 class IPComm {
 public:
-	IPComm(bool create);
+	IPComm(bool create, const std::string fileMappingSuffix = "");
 
 private:
 	FileMapping<SharedMemoryObj> fileMapping;

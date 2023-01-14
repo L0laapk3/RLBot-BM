@@ -1,6 +1,7 @@
 #pragma once
 
 #include <stdexcept>
+#include <string>
 
 #include "shared/SharedObjects.h"
 #include "shared/Exception.h"
@@ -18,6 +19,9 @@ typedef StateSetObj StateSetObj;
 class RLBotBM {
 	IPComm ipComm;
 	int lastTick = 0;
+	void versionCheck();
+protected:
+	RLBotBM(const std::string fileMappingSuffix);
 	
 public:
 	RLBotBM();
