@@ -92,14 +92,11 @@ enum RumblePowerupType {
 
 typedef struct Wheel Wheel;
 
-struct Car INHERIT_HEAD(PhysObj) {
+// CarState contains only the information that describe the state in one tick of a car.
+struct CarState INHERIT_HEAD(PhysObj) {
 	INHERIT_BODY(PhysObj);
 
-	ControllerInput input;
 	float boost;
-	unsigned char team;
-	Vec3 hitbox;
-	Vec3 hitboxOffset;
 
 	int demolishedAt;
 	int jumpedAt;
@@ -108,15 +105,36 @@ struct Car INHERIT_HEAD(PhysObj) {
 	RumblePowerupType rumblePowerupType;
 	int rumblePowerupExpiresAt; // 0 until activated
 
-	// front left, front right, back left, back right
-	ARRAY(Wheel, 4, wheels);
-	
 	unsigned int jumped : 1;
 	unsigned int flipped : 1;
 	unsigned int superSonic : 1;
 	unsigned int demolished : 1;
+#ifdef __cplusplus
+protected:
+#endif
 	unsigned int bot : 1;
 	unsigned int RLBotBMControlled : 1;
+};
+
+// the full Car struct also identifies the car
+struct Car INHERIT_HEAD(CarState) {
+	INHERIT_BODY(CarState);
+
+	unsigned char team;
+
+	Vec3 hitbox;
+	Vec3 hitboxOffset;
+	
+	ControllerInput input;
+
+	// front left, front right, back left, back right
+	ARRAY(Wheel, 4, wheels);
+	
+#ifdef __cplusplus
+public:
+	using CarState::bot;
+	using CarState::RLBotBMControlled;
+#endif
 };
 typedef struct Car Car;
 
