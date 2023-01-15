@@ -19,7 +19,7 @@ __declspec(dllexport) void RLBotBM_destroy(RLBotBM_H* handle);
 __declspec(dllexport) void RLBotBM_getCurrentState(RLBotBM_H* handle, GameStateObj* state);
 
 // set controls for bot at carIndex
-__declspec(dllexport) void RLBotBM_setBotInput(RLBotBM_H* handle, const ControllerInput* controls, const int carIndex);
+__declspec(dllexport) void RLBotBM_setBotInput(RLBotBM_H* handle, const ControllerInput* controls, int carIndex);
 
 // test if the next tick is available (state.tick) and if so, update state
 __declspec(dllexport) bool RLBotBM_pollNextTick(RLBotBM_H* handle, GameStateObj* state);
