@@ -27,7 +27,7 @@ public:
 	RLBotBM();
 	void getCurrentState(GameState& state);
 
-	// set controls for bot at carIndex
+	// set controls for bot at carIndex. Only call at most once per car per tick
 	void setBotInput(const ControllerInput& controls, const int carIndex);
 
 	// test if the next tick is available (state.tick) and if so, update state
