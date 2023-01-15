@@ -69,6 +69,7 @@ struct Ball INHERIT_HEAD(PhysObj) {
 	float radius;
 };
 typedef struct Ball Ball;
+typedef Ball BallState; // this is the same for now
 
 struct Wheel {
 	unsigned int contact : 1;
