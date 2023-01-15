@@ -44,7 +44,7 @@ public:
 	}
 	
 	void lock() {
-		WaitForSingleObject(hSemLock, INFINITE);
+		while (WaitForSingleObject(hSemLock, INFINITE) != WAIT_OBJECT_0) { };
 	}
 	void unlock() {
 		ReleaseSemaphore(hSemLock, 1, NULL);
@@ -55,7 +55,10 @@ public:
 	}
 
 	bool waitOne(DWORD waitTimeMs = INFINITE) {
-		auto res = WaitForSingleObject(hSem, waitTimeMs);
+		DWORD res;
+		do {
+			res = WaitForSingleObject(hSem, waitTimeMs);
+		} while (res != WAIT_OBJECT_0 && res != WAIT_TIMEOUT);
 		return res == WAIT_OBJECT_0;
 	}
 
