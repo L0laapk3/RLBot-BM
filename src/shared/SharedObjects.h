@@ -150,10 +150,10 @@ struct StateSetQuat {
 typedef struct StateSetQuat StateSetQuat;
 
 struct StateSetPhysObj {
-	Quat orientation;
-	Vec3 position;
-	Vec3 velocity;
-	Vec3 angularVelocity;
+	StateSetQuat orientation;
+	StateSetVec3 position;
+	StateSetVec3 velocity;
+	StateSetVec3 angularVelocity;
 };
 typedef struct StateSetPhysObj StateSetPhysObj;
 
