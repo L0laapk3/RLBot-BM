@@ -28,9 +28,6 @@ RLBotBM::RLBotBM(bool createFileMapping, const std::string fileMappingSuffix) : 
 void RLBotBM::setBotInput(const ControllerInput& controls, const int carIndex) {
 	ipComm.mem->gameState.cars[carIndex].input = controls;
 	ipComm.mem->gameState.cars[carIndex].RLBotBMControlled = true;
-
-	// signal the framework that we're ready with current tick
-	ipComm.cvWaitControls.notifyOne();
 }
 
 void RLBotBM::getCurrentState(GameState& state) {
@@ -52,7 +49,10 @@ bool RLBotBM::waitNextTick(GameState& state) {
 	ipComm.cvWaitTick.lock();	// todo: somehow all bots should be able to lock and unlock this simultaneously but not the framework
 	if (lastTick != ipComm.mem->gameState.tick) { // next tick is already ready, immediately progress
 		ipComm.cvWaitTick.unlock();
-	} else {		
+	} else {
+		// signal the framework that we're ready with current tick
+		ipComm.cvWaitControls.notifyOne();
+
 		// wait for next tick
 		ipComm.cvWaitTick.waitOne<true>();
 		while (lastTick == ipComm.mem->gameState.tick) // eat any possible extra abandoned notifications if we're not on the next tick yet
