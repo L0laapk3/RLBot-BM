@@ -1,6 +1,6 @@
 # RLBot-BM
 <p align="center">
-<img src="https://user-images.githubusercontent.com/6313423/214410776-2cf3e1eb-6122-46de-8db8-860dff397463.png" width="300px" />
+<img src="https://user-images.githubusercontent.com/6313423/214428677-3add4ab6-f974-4467-a35d-de0e7bd01e58.png" width="300px" />
 </p>
 
 ## What is RLBot-BM?
