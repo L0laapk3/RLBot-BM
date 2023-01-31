@@ -53,8 +53,6 @@ bool RLBotBM::waitNextTick(GameState& state) {
 
 		// wait for next tick
 		ipComm.cvWaitTick.waitOne<true>();
-		// while (lastTick == ipComm.mem->gameState.tick) // eat any possible extra abandoned notifications if we're not on the next tick yet
-		// 	ipComm.cvWaitTick.CondVar_SingleRecipient::waitOne(0);
 
 		hadToWait = true;
 	}
