@@ -2,7 +2,8 @@
 
 #include <limits>
 #include <cmath>
-
+#include <functional>
+#include <atomic>
 
 
 struct MarkableFloat {
@@ -34,5 +35,11 @@ public:
 	}
 	void clear() {
 		value = T::markedValue();
+	}
+	void compareRunClear(std::function<void(typename T::ValueType)> f) {
+		auto oldValue = value;
+		clear();
+		if (!T::isMarked(oldValue))
+			f(oldValue);
 	}
 };
