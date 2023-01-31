@@ -3,7 +3,7 @@
 #include "shared/Exception.h"
 
 
-#ifndef NOMINMAX 
+#ifndef NOMINMAX
 #define NOMINMAX
 #endif
 #include <windows.h>
@@ -39,39 +39,43 @@ public:
 	}
 
 	~CondVar_SingleRecipient() {
-		CloseHandle(hSemLock);
 		CloseHandle(hSem);
+		CloseHandle(hSemLock);
 	}
-	
+
 	void lock() {
 		while (WaitForSingleObject(hSemLock, INFINITE) != WAIT_OBJECT_0) { };
 	}
 	void unlock() {
 		ReleaseSemaphore(hSemLock, 1, NULL);
 	}
-	
+
 	bool notifyOne() {
 		return ReleaseSemaphore(hSem, 1, NULL);
 	}
 
-	bool waitOne(DWORD waitTimeMs = INFINITE) {
+	bool waitOneSub(DWORD& waitTimeMs, std::chrono::time_point<std::chrono::steady_clock> endTime) {
 		DWORD res;
 		do {
 			res = WaitForSingleObject(hSem, waitTimeMs);
+			auto newWaitTimeMs = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - std::chrono::high_resolution_clock::now()).count();
+			if (newWaitTimeMs <= 0)
+				return false;
+			waitTimeMs = newWaitTimeMs;
 		} while (res != WAIT_OBJECT_0 && res != WAIT_TIMEOUT);
 		return res == WAIT_OBJECT_0;
+	}
+
+	bool waitOne(DWORD waitTimeMs = INFINITE) {
+		return waitOneSub(waitTimeMs, std::chrono::high_resolution_clock::now() + std::chrono::milliseconds(waitTimeMs));
 	}
 
 	int waitN(int count, DWORD waitTimeMs = INFINITE) {
 		auto endTime = std::chrono::high_resolution_clock::now() + std::chrono::milliseconds(waitTimeMs);
 		while (count > 0) {
-			if (!waitOne(waitTimeMs))
-				return count;
-			auto elapsedMs = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - std::chrono::high_resolution_clock::now()).count();
-			if (elapsedMs >= waitTimeMs)
+			if (!waitOneSub(waitTimeMs, endTime))
 				return count;
 			count--;
-			waitTimeMs -= elapsedMs;
 		}
 		return 0;
 	}
@@ -118,7 +122,7 @@ public:
 		unlock();
 		return CondVar_SingleRecipient::waitOne(waitTimeMs);
 	}
-	
+
 	template<bool preLocked = false>
 	int waitN(int count, DWORD waitTimeMs = INFINITE) {
 		auto endTime = std::chrono::high_resolution_clock::now() + std::chrono::milliseconds(waitTimeMs);
@@ -126,14 +130,10 @@ public:
 		while (count > 0) {
 			if (!locked)
 				lock();
-			if (!waitOne<true>(waitTimeMs))
+			if (!waitOneSub<true>(waitTimeMs, endTime))
 				return count;
 			locked = false;
-			auto elapsedMs = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - std::chrono::high_resolution_clock::now()).count();
-			if (elapsedMs >= waitTimeMs)
-				return count;
 			count--;
-			waitTimeMs -= elapsedMs;
 		}
 		return count;
 	}

@@ -1,7 +1,7 @@
 #include "shared/IPComm.h"
 #include "shared/Exception.h"
 
-#ifndef NOMINMAX 
+#ifndef NOMINMAX
 #define NOMINMAX
 #endif
 #include <windows.h>
@@ -13,11 +13,11 @@
 namespace RLBotBM {
 
 
-IPComm::IPComm(bool create, const std::string fileMappingSuffix) :
-	fileMapping("sharedMemory" + fileMappingSuffix, create),
+IPComm::IPComm(bool create, const std::string mappingSuffix) :
+	fileMapping("sharedMemory" + mappingSuffix, create),
 	mem(fileMapping),
-	cvWaitTick("cvWaitTick", &mem->nTickWaiters),
-	cvWaitControls("cvWaitControls") {
+	cvWaitTick("cvWaitTick" + mappingSuffix, &mem->nTickWaiters),
+	cvWaitControls("cvWaitControls" + mappingSuffix) {
 		if (create)
 			new (mem.mem) SharedMemoryObj{}; // initialize memory
 	}
