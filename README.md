@@ -25,6 +25,10 @@ RLBot-BM's approach has a number of advantages over RLBot:
 
 All the features listed above, except the ones listed as TBD, are fully implemented and functional.
 
+### Release
+
+The bakkesmod plugin is closed source and binaries for it will be released at a later date.
+
 ### Known issues
 
 * isRumble bit is always false
