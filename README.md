@@ -32,6 +32,7 @@ The bakkesmod plugin is closed source and binaries for it will be released at a 
 ### Known issues
 
 * isRumble bit is always false
+* Car indices are sometimes messed up as a result of demolitions
 
 ## Example bots
 * **CPP**: [RLBot-BM_RLUtilitiesCPPExampleBot](https://github.com/L0laapk3/RLBot-BM_RLUtilitiesCPPExampleBot)
