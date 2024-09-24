@@ -11,7 +11,7 @@ It is build ontop of RLBot, and remains backwards compatible, but the input and 
 RLBot-BM's approach has a number of advantages over RLBot:
 * Tick perfect, no more dropped ticks when the framerate dips
 * Exact tick information, no interpolated values at a random point between two ticks
-* Zero-latency, bots can respond immediately in the next tick
+* Zero-latency, bots can respond immediately and consistently in the next tick
 * Guarantees with regards to minimum provided computation time for each tick (currently 4ms)
 * The GameState is complete: it includes extra information not found in RLBot such as per wheel contact info and suspension distances
 * Tick perfect state setting
