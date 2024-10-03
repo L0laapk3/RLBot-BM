@@ -104,7 +104,7 @@ struct CarState INHERIT_HEAD(PhysObj) {
 	int flippedAt;
 
 	RumblePowerupType rumblePowerupType;
-	int rumblePowerupExpiresAt; // 0 until activated
+	int rumblePowerupExpiresAt; // 0 if the powerup is currently not active
 
 	unsigned int jumped : 1;
 	unsigned int flipped : 1;
