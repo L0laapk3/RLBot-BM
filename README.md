@@ -20,6 +20,7 @@ RLBot-BM's approach has a number of advantages over RLBot:
 * Uses multiple hooks, bots get extra time while the game renders frames in parallel (TBD)
 * Working lockstep functionality that allows bots as much time as required to compute each tick
 * No need to handle and remember every single tick to keep a complete state, the tick packet includes timer information such as when cars were demolished
+* Accurate, non-rounded boost information
 
 ## Project status
 
